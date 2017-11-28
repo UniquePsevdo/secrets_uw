@@ -1,0 +1,14 @@
+<div class="container">
+    <div style="margin: 20px 0;">
+        <!--<a routerLink="/">Home</a>
+        <a routerLink="/lazy">Lazy</a>-->
+        <a [routerLink]="['/'] | localize">App</a>
+        <a [routerLink]="['/home'] | localize">Home</a>
+        <a [routerLink]="['/lazy'] | localize">Lazy</a>
+        <a [routerLink]="['lazy/nested'] | localize">Lazy_Nested</a>
+        <a [routerLink]="['/admin'] | localize">Admin</a>
+    </div>
+    <div [innerHTML]="'CABINET.brand_name_ph' | translate">
+    </div>
+    <app-lang-switcher></app-lang-switcher>
+</div>
