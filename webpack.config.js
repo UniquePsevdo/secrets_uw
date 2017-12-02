@@ -29,7 +29,11 @@ module.exports = function (options, webpackOptions) {
         entry: entry,
         resolve: {
             extensions: ['.ts', '.js', '.json'],
-            modules: ['node_modules', nodeModules]
+            modules: ['node_modules', nodeModules],
+            alias: {
+                'assets': resolve(__dirname, 'src/assets/'),
+
+            }
         },
 
         resolveLoader: {
@@ -62,7 +66,7 @@ module.exports = function (options, webpackOptions) {
                         "limit": 10000
                     }
                 },*/
-                {
+                /*{
                     test: /\.(jpe?g|png|gif|svg)$/,
                     use: [
                         {
@@ -78,12 +82,19 @@ module.exports = function (options, webpackOptions) {
                         },
                         'image-webpack-loader?'
                     ]
-                }
+                }*/
                 ,
-                /*{
-                    test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-                    loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
-                },*/
+                {
+                    test: /\.jpe?g$|\.gif$|\.png$|\.svg$/,
+                    loader: 'file-loader', // <-- retain original file name,
+                    options: {
+                        // Output below the fonts directory
+                        name: 'assets/images/[name].[ext]',
+                        // Tweak publicPath to fix CSS lookups to take
+                        // the directory into account.
+                        publicPath: '../',
+                    }
+                },
                 /*{
                     test: /\.(eot|woff2?|svg|ttf|otf)([\?]?.*)$/,
                     loader: 'file-loader',
@@ -260,24 +271,24 @@ function getProductionPlugins() {
 function stylesConfig() {
     return {
         plugins: [
-            new extract('css/[hash].css')
+            new extract('css/[name][hash].css')
         ],
         module: {
             rules: [
                 {
                     test: /\.css$/,
-                    use: extract.extract({fallback: 'style-loader', use: 'css-loader'}),
+                    use: extract.extract({fallback: 'style-loader', use: 'css-loader?url=false'}),
                     include: [root('src/styles')]
                 },
-                {test: /\.css$/, use: ['to-string-loader', 'css-loader']},
+                {test: /\.css$/, use: ['to-string-loader', 'css-loader?url=false']},
                 {
                     test: /\.scss$|\.sass$/,
-                    loader: extract.extract({fallback: 'style-loader', use: ['css-loader', 'sass-loader']}),
+                    loader: extract.extract({fallback: 'style-loader', use: ['css-loader?url=false', 'sass-loader']}),
                     exclude: [root('src/app/components'), root('node_modules')]
                 },
                 {
                     test: /\.scss$|\.sass$/,
-                    use: ['to-string-loader', 'css-loader', 'sass-loader'],
+                    use: ['to-string-loader', 'css-loader?url=false', 'sass-loader'],
                     include: [root('src/app/components')]
                 }
             ]
