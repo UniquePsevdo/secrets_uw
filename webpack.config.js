@@ -1,6 +1,6 @@
 const path = require('path');
 const resolve = path.resolve;
-const {AngularCompilerPlugin, PLATFORM} = require('@ngtools/webpack');
+const { AngularCompilerPlugin, PLATFORM } = require('@ngtools/webpack');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const compression = require('compression-webpack-plugin');
@@ -45,31 +45,100 @@ module.exports = function (options, webpackOptions) {
                         removeAttributeQuotes: false,
                         caseSensitive: true,
                         customAttrSurround: [[/#/, /(?:)/], [/\*/, /(?:)/], [/\[?\(?/, /(?:)/]],
-                        customAttrSurround: [[/#/, /(?:)/], [/\*/, /(?:)/], [/\[?\(?/, /(?:)/]],
                         customAttrAssign: [/\)?\]?=/]
                     }
                 },
                 {test: /\.json$/, loader: 'json-loader'},
-                {
+                /*{
                     test: /\.(jp?g|png|gif)$/,
                     loader: 'file-loader',
-                    options: {hash: 'sha512', digest: 'hex', name: 'images/[hash].[ext]'}
-                },
+                    options: {hash: 'sha512', digest: 'hex', name: 'assets/images/[hash].[ext]', publicPath: '../',}
+                }*/
+                /*{
+                    "test": /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
+                    "loader": "url-loader",
+                    "options": {
+                        "name": "[name].[hash:20].[ext]",
+                        "limit": 10000
+                    }
+                },*/
                 {
+                    test: /\.(jpe?g|png|gif|svg)$/,
+                    use: [
+                        {
+                            loader: "url-loader",
+                            options:{
+                                limit: 10000,
+                                // Output below the fonts directory
+                                name: 'assets/images/[name].[ext]',
+                                // Tweak publicPath to fix CSS lookups to take
+                                // the directory into account.
+                                publicPath: '../',
+                            }
+                        },
+                        'image-webpack-loader?'
+                    ]
+                }
+                ,
+                /*{
                     test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
                     loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
-                },
-                {
+                },*/
+                /*{
                     test: /\.(eot|woff2?|svg|ttf|otf)([\?]?.*)$/,
                     loader: 'file-loader',
-                    options: {hash: 'sha512', digest: 'hex', name: 'fonts/[hash].[ext]'}
+                    options: {hash: 'sha512', digest: 'hex', name: 'assets/fonts/[hash].[ext]'}
+                }*/
+                {
+                    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    loader: "url-loader",
+                    options:{
+                        limit: 10000,
+                        mimetype: 'application/font-woff',
+                        // Output below the fonts directory
+                        name: 'assets/fonts/[name].[ext]',
+                        // Tweak publicPath to fix CSS lookups to take
+                        // the directory into account.
+                        publicPath: '../',
+                    }
+                },
+                {
+                    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    loaders: "file-loader",
+                    options:{
+                        // Output below the fonts directory
+                        name: 'assets/fonts/[name].[ext]',
+                        // Tweak publicPath to fix CSS lookups to take
+                        // the directory into account.
+                        publicPath: '../',
+                    }
                 }
             ]
         },
         plugins: [
             new copy([
-                {context: './src/assets', from: '**/*'}
-            ]),
+                {
+                    "context": "src",
+                    "to": "",
+                    "from": {
+                        "glob": "assets/**/*",
+                        "dot": true
+                    }
+                },
+                {
+                    "context": "src",
+                    "to": "",
+                    "from": {
+                        "glob": "favicon.ico",
+                        "dot": true
+                    }
+                }
+            ], {
+                "ignore": [
+                    ".gitkeep"
+                ],
+                "debug": "warning"
+            }),
         ],
         stats: 'minimal'
     });
