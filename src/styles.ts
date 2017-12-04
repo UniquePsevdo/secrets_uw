@@ -1,2 +1,4 @@
-import './styles/styles.scss';
-import './styles/theme.scss';
+/*
+// import styles
+import './styles.scss';
+import './theme.scss';*/

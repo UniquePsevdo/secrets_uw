@@ -10,7 +10,51 @@ const extract = require('extract-text-webpack-plugin');
 const portfinder = require('portfinder');
 const nodeModules = resolve(__dirname, 'node_modules');
 const nodeExternals = require('webpack-node-externals');
+const autoprefixer = require('autoprefixer');
+const postcssUrl = require('postcss-url');
+const cssnano = require('cssnano');
+const customProperties = require('postcss-custom-properties');
 const entryPoints = ["inline", "polyfills", "sw-register", "styles", "vendor", "app"];
+const minimizeCss = false;
+const baseHref = "";
+const deployUrl = "";
+
+const postcssPlugins = function () {
+    // safe settings based on: https://github.com/ben-eb/cssnano/issues/358#issuecomment-283696193
+    const importantCommentRe = /@preserve|@license|[@#]\s*source(?:Mapping)?URL|^!/i;
+    const minimizeOptions = {
+        autoprefixer: false,
+        safe: true,
+        mergeLonghand: false,
+        discardComments: { remove: (comment) => !importantCommentRe.test(comment) }
+    };
+    return [
+        postcssUrl({
+            url: (URL) => {
+                // Only convert root relative URLs, which CSS-Loader won't process into require().
+                if (!URL.startsWith('/') || URL.startsWith('//')) {
+                    return URL;
+                }
+                if (deployUrl.match(/:\/\//)) {
+                    // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
+                    return `${deployUrl.replace(/\/$/, '')}${URL}`;
+                }
+                else if (baseHref.match(/:\/\//)) {
+                    // If baseHref contains a scheme, include it as is.
+                    return baseHref.replace(/\/$/, '') +
+                        `/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+                }
+                else {
+                    // Join together base-href, deploy-url and the original URL.
+                    // Also dedupe multiple slashes into single ones.
+                    return `/${baseHref}/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+                }
+            }
+        }),
+        autoprefixer(),
+        customProperties({ preserve: true })
+    ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
+};
 
 module.exports = function (options, webpackOptions) {
     options = options || {};
@@ -32,7 +76,6 @@ module.exports = function (options, webpackOptions) {
             modules: ['node_modules', nodeModules],
             alias: {
                 'assets': resolve(__dirname, 'src/assets/'),
-
             }
         },
 
@@ -40,7 +83,7 @@ module.exports = function (options, webpackOptions) {
             modules: [nodeModules, 'node_modules']
         },
         module: {
-            rules: [
+            /*rules: [
                 {
                     test: /\.html$/,
                     loader: 'html-loader',
@@ -48,25 +91,25 @@ module.exports = function (options, webpackOptions) {
                         minimize: true,
                         removeAttributeQuotes: false,
                         caseSensitive: true,
-                        customAttrSurround: [[/#/, /(?:)/], [/\*/, /(?:)/], [/\[?\(?/, /(?:)/]],
+                        customAttrSurround: [[/#/, /(?:)/], [/\*!/, /(?:)/], [/\[?\(?/, /(?:)/]],
                         customAttrAssign: [/\)?\]?=/]
                     }
                 },
                 {test: /\.json$/, loader: 'json-loader'},
-                /*{
+                /!*{
                     test: /\.(jp?g|png|gif)$/,
                     loader: 'file-loader',
                     options: {hash: 'sha512', digest: 'hex', name: 'assets/images/[hash].[ext]', publicPath: '../',}
-                }*/
-                /*{
+                }*!/
+                /!*{
                     "test": /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
                     "loader": "url-loader",
                     "options": {
                         "name": "[name].[hash:20].[ext]",
                         "limit": 10000
                     }
-                },*/
-                /*{
+                },*!/
+                /!*{
                     test: /\.(jpe?g|png|gif|svg)$/,
                     use: [
                         {
@@ -82,8 +125,7 @@ module.exports = function (options, webpackOptions) {
                         },
                         'image-webpack-loader?'
                     ]
-                }*/
-                ,
+                }*!/
                 {
                     test: /\.jpe?g$|\.gif$|\.png$|\.svg$/,
                     loader: 'file-loader', // <-- retain original file name,
@@ -95,11 +137,11 @@ module.exports = function (options, webpackOptions) {
                         publicPath: '../',
                     }
                 },
-                /*{
+                /!*{
                     test: /\.(eot|woff2?|svg|ttf|otf)([\?]?.*)$/,
                     loader: 'file-loader',
                     options: {hash: 'sha512', digest: 'hex', name: 'assets/fonts/[hash].[ext]'}
-                }*/
+                }*!/
                 {
                     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: "url-loader",
@@ -123,6 +165,258 @@ module.exports = function (options, webpackOptions) {
                         // the directory into account.
                         publicPath: '../',
                     }
+                }
+            ]*/
+            rules: [
+                {
+                    "test": /\.html$/,
+                    "loader": "raw-loader"
+                },
+                {
+                    "test": /\.(eot|svg|cur)$/,
+                    "loader": "file-loader",
+                    "options": {
+                        "name": "[name].[hash:20].[ext]",
+                        "limit": 10000
+                    }
+                },
+                {
+                    "test": /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
+                    "loader": "url-loader",
+                    "options": {
+                        "name": "[name].[hash:20].[ext]",
+                        "limit": 10000
+                    }
+                },
+                {
+                    "exclude": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.css$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        }
+                    ]
+                },
+                {
+                    "exclude": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.scss$|\.sass$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "sass-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "precision": 8,
+                                "includePaths": []
+                            }
+                        }
+                    ]
+                },
+                {
+                    "exclude": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.less$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "less-loader",
+                            "options": {
+                                "sourceMap": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "exclude": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.styl$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "stylus-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "paths": []
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.css$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.scss$|\.sass$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "sass-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "precision": 8,
+                                "includePaths": []
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.less$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "less-loader",
+                            "options": {
+                                "sourceMap": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src/styles.scss")
+                    ],
+                    "test": /\.styl$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "stylus-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "paths": []
+                            }
+                        }
+                    ]
+                },
+                {
+                    "test": /\.ts$/,
+                    "loader": "@ngtools/webpack"
                 }
             ]
         },
@@ -271,7 +565,7 @@ function getProductionPlugins() {
 function stylesConfig() {
     return {
         plugins: [
-            new extract('css/[name][hash].css')
+            new extract('css/[hash].css')
         ],
         module: {
             rules: [
