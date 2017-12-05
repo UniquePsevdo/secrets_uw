@@ -3,6 +3,7 @@ const resolve = path.resolve;
 const { AngularCompilerPlugin, PLATFORM } = require('@ngtools/webpack');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
+let FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const compression = require('compression-webpack-plugin');
 const html = require('html-webpack-plugin');
 const copy = require('copy-webpack-plugin');
@@ -18,6 +19,8 @@ const entryPoints = ["inline", "polyfills", "sw-register", "styles", "vendor", "
 const minimizeCss = false;
 const baseHref = "";
 const deployUrl = "";
+
+//todo: eject webpack with new libs
 
 const postcssPlugins = function () {
     // safe settings based on: https://github.com/ben-eb/cssnano/issues/358#issuecomment-283696193
@@ -190,7 +193,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "exclude": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.css$/,
                     "use": [
@@ -213,7 +216,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "exclude": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.scss$|\.sass$/,
                     "use": [
@@ -244,7 +247,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "exclude": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.less$/,
                     "use": [
@@ -273,7 +276,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "exclude": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.styl$/,
                     "use": [
@@ -303,7 +306,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "include": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.css$/,
                     "use": [
@@ -326,7 +329,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "include": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.scss$|\.sass$/,
                     "use": [
@@ -357,7 +360,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "include": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.less$/,
                     "use": [
@@ -386,7 +389,7 @@ module.exports = function (options, webpackOptions) {
                 },
                 {
                     "include": [
-                        path.join(process.cwd(), "src/styles.scss")
+                        path.join(process.cwd(), "src", "styles.scss")
                     ],
                     "test": /\.styl$/,
                     "use": [
@@ -471,7 +474,19 @@ module.exports = function (options, webpackOptions) {
 
     config = webpackMerge({}, config, {
         plugins: [
-            new html({
+                new html({
+                    filename: "./index.html",
+                    hash: false,
+                    inject: true,
+                    compile: true,
+                    favicon: false,
+                    minify: false,
+                    cache: true,
+                    showErrors: true,
+                    chunks: "all",
+                    excludeChunks: [],
+                    title: "Webpack App",
+                    xhtml: true,
                 template: root('src/index.html'),
                 output: !options.server ? root('dist/browser') : root('dist/server'),
                 chunksSortMode: sort = (left, right) => {
@@ -489,13 +504,19 @@ module.exports = function (options, webpackOptions) {
         ]
     });
 
+    config = webpackMerge({}, config, {
+        plugins: [
+            new FaviconsWebpackPlugin(path.join(process.cwd(), "src", "assets", "images", "place_logo_3.png"))
+        ]
+    });
+
     if (webpackOptions.p) {
         config = webpackMerge({}, config, getProductionPlugins());
     } else {
         config = webpackMerge({}, config, getDevelopmentConfig());
     }
 
-    config = webpackMerge({}, config, stylesConfig());
+    /*config = webpackMerge({}, config, stylesConfig());*/
 
     config = webpackMerge({}, config, {
         module: {
