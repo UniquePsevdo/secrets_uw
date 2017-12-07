@@ -1,3 +1,1 @@
-import './styles';
-/*import './styles.scss';
-import './theme.scss';*/
+import './styles/styles.scss';

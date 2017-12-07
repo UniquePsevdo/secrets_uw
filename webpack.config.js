@@ -77,6 +77,7 @@ module.exports = function (options, webpackOptions) {
             modules: ['node_modules', nodeModules],
             alias: {
                 'assets': resolve(__dirname, 'src/assets/'),
+                'node_modules': resolve(__dirname, 'node_modules/')
             }
         },
 
@@ -84,6 +85,7 @@ module.exports = function (options, webpackOptions) {
             modules: [nodeModules, 'node_modules']
         },
         module: {
+            // was
             /*rules: [
                 {
                     test: /\.html$/,
@@ -358,254 +360,252 @@ function getProductionPlugins() {
 function stylesConfig() {
     return {
         plugins: [
-            /*new extract('css/[hash].css')*/
-            new extract('styles.css')
+            new extract('styles.[hash].css')
         ],
         module: {
             rules: [
-                /*{
+                {
                     test: /\.css$/,
-                    use: extract.extract({fallback: 'style-loader', use: 'css-loader?url=false'}),
-                    include: [root('src/styless')]
+                    use: extract.extract({fallback: 'style-loader', use: 'css-loader'}),
+                    include: [root('src/styles')]
                 },
-                {test: /\.css$/, use: ['to-string-loader', 'css-loader?url=false']},
+                {test: /\.css$/, use: ['to-string-loader', 'css-loader']},
                 {
                     test: /\.scss$|\.sass$/,
-                    loader: extract.extract({fallback: 'style-loader', use: ['css-loader?url=false', 'sass-loader']}),
+                    loader: extract.extract({fallback: 'style-loader', use: ['css-loader', 'sass-loader']}),
                     exclude: [root('src/app/components'), root('node_modules')]
                 },
                 {
                     test: /\.scss$|\.sass$/,
-                    use: ['to-string-loader', 'css-loader?url=false', 'sass-loader'],
+                    use: ['to-string-loader', 'css-loader', 'sass-loader'],
                     include: [root('src/app/components')]
+                },
+                /*{
+                    "exclude": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.css$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        }
+                    ]
+                },
+                {
+                    "exclude": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.scss$|\.sass$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "sass-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "precision": 8,
+                                "includePaths": []
+                            }
+                        }
+                    ]
+                },
+                {
+                    "exclude": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.less$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "less-loader",
+                            "options": {
+                                "sourceMap": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "exclude": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.styl$/,
+                    "use": [
+                        "exports-loader?module.exports.toString()",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "stylus-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "paths": []
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.css$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.scss$|\.sass$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "sass-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "precision": 8,
+                                "includePaths": []
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.less$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "less-loader",
+                            "options": {
+                                "sourceMap": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "include": [
+                        path.join(process.cwd(), "src", "styles", "styes.scss")
+                    ],
+                    "test": /\.styl$/,
+                    "use": [
+                        "style-loader",
+                        {
+                            "loader": "css-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "importLoaders": 1
+                            }
+                        },
+                        {
+                            "loader": "postcss-loader",
+                            "options": {
+                                "ident": "postcss",
+                                "plugins": postcssPlugins
+                            }
+                        },
+                        {
+                            "loader": "stylus-loader",
+                            "options": {
+                                "sourceMap": false,
+                                "paths": []
+                            }
+                        }
+                    ]
                 },*/
-
-                {
-                    "exclude": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.css$/,
-                    "use": [
-                        "exports-loader?module.exports.toString()",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        }
-                    ]
-                },
-                {
-                    "exclude": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.scss$|\.sass$/,
-                    "use": [
-                        "exports-loader?module.exports.toString()",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        },
-                        {
-                            "loader": "sass-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "precision": 8,
-                                "includePaths": []
-                            }
-                        }
-                    ]
-                },
-                {
-                    "exclude": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.less$/,
-                    "use": [
-                        "exports-loader?module.exports.toString()",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        },
-                        {
-                            "loader": "less-loader",
-                            "options": {
-                                "sourceMap": false
-                            }
-                        }
-                    ]
-                },
-                {
-                    "exclude": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.styl$/,
-                    "use": [
-                        "exports-loader?module.exports.toString()",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        },
-                        {
-                            "loader": "stylus-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "paths": []
-                            }
-                        }
-                    ]
-                },
-                {
-                    "include": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.css$/,
-                    "use": [
-                        "style-loader",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        }
-                    ]
-                },
-                {
-                    "include": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.scss$|\.sass$/,
-                    "use": [
-                        "style-loader",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        },
-                        {
-                            "loader": "sass-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "precision": 8,
-                                "includePaths": []
-                            }
-                        }
-                    ]
-                },
-                {
-                    "include": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.less$/,
-                    "use": [
-                        "style-loader",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        },
-                        {
-                            "loader": "less-loader",
-                            "options": {
-                                "sourceMap": false
-                            }
-                        }
-                    ]
-                },
-                {
-                    "include": [
-                        path.join(process.cwd(), "src", "styless.scss")
-                    ],
-                    "test": /\.styl$/,
-                    "use": [
-                        "style-loader",
-                        {
-                            "loader": "css-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "importLoaders": 1
-                            }
-                        },
-                        {
-                            "loader": "postcss-loader",
-                            "options": {
-                                "ident": "postcss",
-                                "plugins": postcssPlugins
-                            }
-                        },
-                        {
-                            "loader": "stylus-loader",
-                            "options": {
-                                "sourceMap": false,
-                                "paths": []
-                            }
-                        }
-                    ]
-                },
             ]
         }
     };
