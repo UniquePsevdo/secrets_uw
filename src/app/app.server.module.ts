@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 import { AppModule, routes } from './app.module';
@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 Globals.setEnvironment('prod');
 
+@Injectable()
 export class LocalizeUniversalLoader extends LocalizeParser {
     /**
      * Gets config from the server

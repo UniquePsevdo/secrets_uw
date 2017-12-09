@@ -1,7 +1,8 @@
+<!--
 <div class="container">
     <div style="margin: 20px 0;">
-        <!--<a routerLink="/">Home</a>
-        <a routerLink="/lazy">Lazy</a>-->
+        &lt;!&ndash;<a routerLink="/">Home</a>
+        <a routerLink="/lazy">Lazy</a>&ndash;&gt;
         <a [routerLink]="['/'] | localize">App</a>
         <a [routerLink]="['/home'] | localize">Home</a>
         <a [routerLink]="['/lazy'] | localize">Lazy</a>
@@ -11,4 +12,32 @@
     <div [innerHTML]="'CABINET.brand_name_ph' | translate">
     </div>
     <app-lang-switcher></app-lang-switcher>
-</div>
+</div>-->
+
+
+<header class="header">
+    <div class="wrap">
+        <nav class="nav">
+            <div class="nav-item">
+                <a href="javascript:void(0);" class="nav-link">О нас</a>
+            </div>
+            <div class="nav-item">
+                <a href="javascript:void(0);" class="nav-link">Помощь</a>
+            </div>
+            <div class="nav-item">
+                <a href="javascript:void(0);" class="nav-link">Блог</a>
+            </div>
+            <div class="nav-item">
+                <a href="javascript:void(0);" class="nav-link">Контакты</a>
+            </div>
+        </nav>
+        <div class="header-actions">
+            <div class="lang">
+                <app-lang-switcher></app-lang-switcher>
+            </div>
+            <div class="admin-nav">
+                <!--<app-menu></app-menu>-->
+            </div>
+        </div>
+    </div>
+</header>

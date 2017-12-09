@@ -1,10 +1,16 @@
 const path = require('path');
+const resolve = path.resolve;
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     entry: {server: './server.ts'},
-    resolve: {extensions: ['.js', '.ts']},
+    resolve: {
+        extensions: ['.js', '.ts'],
+        alias: {
+            'assets': resolve(__dirname, 'src/assets/')
+        }
+    },
     target: 'node',
     // this makes sure we include node_modules and other 3rd party libraries
     // (node_modules|main\..*\.js)/,

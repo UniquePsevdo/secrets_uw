@@ -280,7 +280,7 @@ module.exports = function (options, webpackOptions) {
 
     config = webpackMerge({}, config, {
         plugins: [
-            new FaviconsWebpackPlugin(path.join(process.cwd(), "src", "assets", "images", "place_logo_3.png"))
+            new FaviconsWebpackPlugin(path.join(process.cwd(), "src", "assets", "images", "favicon.jpg"))
         ]
     });
 
@@ -380,6 +380,7 @@ function stylesConfig() {
                     use: ['to-string-loader', 'css-loader', 'sass-loader'],
                     include: [root('src/app/components')]
                 },
+
                 /*{
                     "exclude": [
                         path.join(process.cwd(), "src", "styles", "styes.scss")
@@ -605,7 +606,8 @@ function stylesConfig() {
                             }
                         }
                     ]
-                },*/
+                }*/
+
             ]
         }
     };
