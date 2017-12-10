@@ -23,6 +23,12 @@
     "error_email": "E-mail adress is invalid",
     "error_region": "Choose your region from the list"
   },
+  "HEADER": {
+    "home": "Home",
+    "about_us": "About Us",
+    "help": "Help",
+    "contacts": "Contacts"
+  },
   "ROUTES": {
     "home": "/home"
   }

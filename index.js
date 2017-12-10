@@ -4,15 +4,16 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const apiRouter = require('./apiRoutes/apiRouter');
-const mongoose = require ('mongoose');
-const cors = require ('cors');
-const i18n = require("i18n");
+const mongoose = require('mongoose');
+const cors = require('cors');
+const i18n = require('i18n');
+const path = require('path');
 const {notFound, developmentErrors, productionErrors} = require('./handlers/errorHandlers');
 
 i18n.configure({
-	locales:['ua', 'en'],
-	directory: __dirname + '/locales',
-	defaultLocale: 'ua',
+    locales: ['ua', 'en'],
+    directory: path.join(process.cwd(), 'src', 'assets', 'locales'),
+    defaultLocale: 'ua',
 });
 
 //db setup
@@ -28,13 +29,13 @@ app.set('view engine', 'html');*/
 
 var whitelist = ['http://localhost:4200', 'http://localhost:8000', 'http://localhost:4000'];
 var corsOptions = {
-	origin: function (origin, callback) {
-		if (whitelist.indexOf(origin) !== -1) {
-			callback(null, true)
-		} else {
-			callback(new Error('Not allowed by CORS'))
-		}
-	}
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
 }
 app.use(cors(corsOptions));
 app.use(bodyParser.json({type: '*/*'}));
@@ -44,11 +45,10 @@ app.use('/api/', apiRouter);
 app.use(notFound);
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
-	app.use(developmentErrors);
-}else{
-	app.use(productionErrors);
+    app.use(developmentErrors);
+} else {
+    app.use(productionErrors);
 }
-
 
 
 //server setup

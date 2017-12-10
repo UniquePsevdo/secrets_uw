@@ -19,16 +19,19 @@
     <div class="wrap">
         <nav class="nav">
             <div class="nav-item">
-                <a href="javascript:void(0);" class="nav-link">О нас</a>
+                <a href="javascript:void(0);" [routerLink]="['/'] | localize" class="nav-link">{{'HEADER.home' | translate}}<!--О нас--></a>
             </div>
             <div class="nav-item">
-                <a href="javascript:void(0);" class="nav-link">Помощь</a>
+                <a href="javascript:void(0);" class="nav-link">{{'HEADER.about_us' | translate}}<!--О нас--></a>
             </div>
             <div class="nav-item">
+                <a href="javascript:void(0);" class="nav-link">{{'HEADER.help' | translate}}<!--Помощь--></a>
+            </div>
+            <!--<div class="nav-item">
                 <a href="javascript:void(0);" class="nav-link">Блог</a>
-            </div>
+            </div>-->
             <div class="nav-item">
-                <a href="javascript:void(0);" class="nav-link">Контакты</a>
+                <a href="javascript:void(0);" [routerLink]="['/contacts'] | localize" class="nav-link">{{'HEADER.contacts' | translate}}<!--Контакты--></a>
             </div>
         </nav>
         <div class="header-actions">

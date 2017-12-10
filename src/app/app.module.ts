@@ -16,13 +16,13 @@ import { GlobalsDev } from '../environment';
 import { GlobalsProd } from '../environment.prod';
 import { HeaderComponent } from './components/app-header/app-header.component';
 import { LangSwitcherComponent } from './components/app-lang-swicher/app-lang-switcher.component';
-import { AdminComponent } from './components/app-admin/app-admin.component';
+import { ContactsComponent } from './components/app-contracts/app-contacts.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full' },
     {path: 'home', component: HomeComponent},
-    {path: 'admin', component: AdminComponent},
-    {path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule'},
+    {path: 'contacts', component: ContactsComponent},
+    {path: 'admin', loadChildren: './lazy/lazy.module#LazyModule'},
     {path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule'}
 ];
 
@@ -33,7 +33,7 @@ export const routes: Routes = [
         HeaderComponent,
         StubComponent,
         LangSwitcherComponent,
-        AdminComponent
+        ContactsComponent
     ],
     imports: [
         BrowserAnimationsModule,
