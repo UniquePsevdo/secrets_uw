@@ -14,14 +14,14 @@ import { MaterialModuleAdmin } from '../common/material.module.admin';
 })
 export class LazyComponent {
 }
-
+// LoginComponent, RegisterComponent
 @NgModule({
-    declarations: [ AdminComponent, LazyComponent, LoginComponent, RegisterComponent],
+    declarations: [ AdminComponent, LazyComponent],
     imports: [
-        BrowserModule,
+        /*BrowserModule,
         MaterialModuleAdmin,
         AuthenticationModule,
-        ReactiveFormsModule, FormsModule,
+        ReactiveFormsModule, FormsModule,*/
         RouterModule.forChild([
             {path: '', component: AdminComponent, pathMatch: 'full'}
         ])
