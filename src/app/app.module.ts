@@ -22,8 +22,8 @@ export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full' },
     {path: 'home', component: HomeComponent},
     {path: 'contacts', component: ContactsComponent},
-    {path: 'admin', loadChildren: './lazy/lazy.module#LazyModule'},
-    {path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule'}
+    {path: 'admin', loadChildren: './lazy/admin.module#AdminModule'},
+    {path: 'lazy/nested', loadChildren: './lazy/admin.module#AdminModule'}
 ];
 
 @NgModule({
