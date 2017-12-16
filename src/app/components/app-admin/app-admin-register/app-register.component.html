@@ -1,1 +1,44 @@
-<p>Register Works!</p>
+<!--<div class="padding">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-input-container fxFlex="50%" style="padding:0 10px 0 0">
+                <input matInput formControlName="email" type="email" placeholder="email">&lt;!&ndash;disabled value="Google"&ndash;&gt;
+                <mat-error *ngIf="!signUpForm.get('email').valid && signUpForm.get('email').touched">
+                    <span *ngIf="signUpForm.get('email').errors.required">This field is required</span>
+                    <span *ngIf="signUpForm.get('email').errors.email && !signUpForm.get('email').errors.required">Email is invalid</span>
+                </mat-error>
+            </mat-input-container>
+            <mat-input-container fxFlex="50%" style="padding:0 0 0 10px">
+                <input matInput formControlName="password" type="password" placeholder="password">
+                &lt;!&ndash;disabled value="Google"&ndash;&gt;
+                <mat-error *ngIf="!signUpForm.get('password').valid && signUpForm.get('password').touched">
+                    <span *ngIf="signUpForm.get('password').errors.required">This field is required</span>
+                </mat-error>
+            </mat-input-container>
+        </div>
+        <button mat-raised-button color="primary" [disabled]="!signUpForm.valid" type="submit">Submit</button>
+        &lt;!&ndash;(click)=""&ndash;&gt;
+    </form>
+</div>-->
+<div class="padding">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="container" style="justify-content: space-between">
+            <mat-input-container style="padding:0 10px 0 0; width:100%">
+                <input matInput formControlName="email" type="email" placeholder="email"><!--disabled value="Google"-->
+                <mat-error *ngIf="!signUpForm.get('email').valid && signUpForm.get('email').touched">
+                    <span *ngIf="signUpForm.get('email').errors.required">This field is required</span>
+                    <span *ngIf="signUpForm.get('email').errors.email && !signUpForm.get('email').errors.required">Email is invalid</span>
+                </mat-error>
+            </mat-input-container>
+            <mat-input-container fxFlex="50%" style="padding:0 0 0 10px; width:100%">
+                <input matInput formControlName="password" type="password" placeholder="password">
+                <!--disabled value="Google"-->
+                <mat-error *ngIf="!signUpForm.get('password').valid && signUpForm.get('password').touched">
+                    <span *ngIf="signUpForm.get('password').errors.required">This field is required</span>
+                </mat-error>
+            </mat-input-container>
+        </div>
+        <button mat-raised-button color="primary" [disabled]="!signUpForm.valid" type="submit">Submit</button>
+        <!--(click)=""-->
+    </form>
+</div>
