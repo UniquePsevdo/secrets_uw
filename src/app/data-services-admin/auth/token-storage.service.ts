@@ -28,7 +28,6 @@ export class TokenStorage {
      */
     public setAccessToken(token: string): TokenStorage {
         localStorage.setItem('accessToken', token);
-
         return this;
     }
 

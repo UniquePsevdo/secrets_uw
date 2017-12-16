@@ -8,6 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
 import { TokenStorage } from './token-storage.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 interface AccessData {
     accessToken: string;
@@ -16,11 +17,14 @@ interface AccessData {
 
 @Injectable()
 export class AuthenticationService implements AuthService {
+    private isLoggedIn: BehaviorSubject<any>;
+    isLoggedIn$: Observable<any>;
 
-    constructor(
-        private http: HttpClient,
-        private tokenStorage: TokenStorage
-    ) {}
+    constructor (private http: HttpClient,
+                 private tokenStorage: TokenStorage) {
+        this.isLoggedIn = new BehaviorSubject<any>(false);
+        this.isLoggedIn$ = this.isLoggedIn.asObservable();
+    }
 
     /**
      * Check, if user already authorized.
@@ -28,10 +32,11 @@ export class AuthenticationService implements AuthService {
      * @returns {Observable<boolean>}
      * @memberOf AuthService
      */
-    public isAuthorized(): Observable < boolean > {
+    public isAuthorized (): Observable<boolean> {
         return this.tokenStorage
             .getAccessToken()
             .map((token) => {
+                this.setIsLoggedIn(!!token);
                 return !!token
             });
     }
@@ -42,7 +47,7 @@ export class AuthenticationService implements AuthService {
      * localStorage
      * @returns {Observable<string>}
      */
-    public getAccessToken(): Observable < string > {
+    public getAccessToken (): Observable<string> {
         return this.tokenStorage.getAccessToken();
     }
 
@@ -52,11 +57,11 @@ export class AuthenticationService implements AuthService {
      * can execute pending requests or retry original one
      * @returns {Observable<any>}
      */
-    public refreshToken(): Observable < AccessData > {
+    public refreshToken (): Observable<AccessData> {
         return this.tokenStorage
             .getRefreshToken()
             .switchMap((refreshToken: string) => {
-                return this.http.post(`http://localhost:3000/refresh`, { refreshToken });
+                return this.http.post(`http://localhost:3000/refresh`, {refreshToken});
             })
             .do(this.saveAccessData.bind(this))
             .catch((err) => {
@@ -73,7 +78,7 @@ export class AuthenticationService implements AuthService {
      * @param {Response} response
      * @returns {boolean}
      */
-    public refreshShouldHappen(response: HttpErrorResponse): boolean {
+    public refreshShouldHappen (response: HttpErrorResponse): boolean {
         return response.status === 401
     }
 
@@ -83,7 +88,7 @@ export class AuthenticationService implements AuthService {
      * @param {string} url
      * @returns {boolean}
      */
-    public verifyTokenRequest(url: string): boolean {
+    public verifyTokenRequest (url: string): boolean {
         return url.endsWith('/refresh');
     }
 
@@ -91,15 +96,15 @@ export class AuthenticationService implements AuthService {
      * EXTRA AUTH METHODS
      */
 
-    public login(): Observable<any> {
-        return this.http.post(`http://localhost:3000/login`, { })
+    public login (): Observable<any> {
+        return this.http.post(`http://localhost:3000/login`, {})
             .do((tokens: AccessData) => this.saveAccessData(tokens));
     }
 
     /**
      * Logout
      */
-    public logout(): void {
+    public logout (): void {
         this.tokenStorage.clear();
         location.reload(true);
     }
@@ -110,9 +115,15 @@ export class AuthenticationService implements AuthService {
      * @private
      * @param {AccessData} data
      */
-    private saveAccessData({ accessToken, refreshToken }: AccessData) {
+    private saveAccessData ({accessToken, refreshToken}: AccessData) {
+        /*this.setIsLoggedIn(true);*/
         this.tokenStorage
             .setAccessToken(accessToken)
             .setRefreshToken(refreshToken);
+    }
+
+    setIsLoggedIn (value) {
+        console.log('setIsLoggedIn ', value);
+        this.isLoggedIn.next(value);
     }
 }

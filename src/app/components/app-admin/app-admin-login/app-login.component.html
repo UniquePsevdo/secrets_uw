@@ -1,14 +1,14 @@
 <div class="padding">
     <form [formGroup]="signInForm">
-        <div fxLayout="row" fxLayoutAlign="center center">
-            <mat-input-container fxFlex="50%" style="padding:0 10px 0 0">
+        <div class="container" style="justify-content: space-between">
+            <mat-input-container class="container" style="padding:0 10px 0 0; width: 50%">
                 <input matInput formControlName="email" type="email" placeholder="email">
                 <mat-error *ngIf="!signInForm.get('email').valid && signInForm.get('email').touched">
                     <span *ngIf="signInForm.get('email').errors.required">This field is required</span>
                     <span *ngIf="signInForm.get('email').errors.email && !signInForm.get('email').errors.required">Email is invalid</span>
                 </mat-error>
             </mat-input-container>
-            <mat-input-container fxFlex="50%" style="padding:0 0 0 10px">
+            <mat-input-container class="container" style="padding:0 0 0 10px;; width: 50%">
                 <input matInput formControlName="password" type="password" placeholder="password">
                 <mat-error *ngIf="!signInForm.get('password').valid && signInForm.get('password').touched">
                     <span *ngIf="signInForm.get('password').errors.required">This field is required</span>

@@ -1,1 +1,19 @@
-<p>Admin Works!</p>
+<div class="padding" style="margin-top: 150px">
+    <mat-tab-group>
+        <mat-tab *ngIf="isLoggedIn===false" label="Log In">
+            <app-login></app-login>
+        </mat-tab>
+        <mat-tab *ngIf="isLoggedIn===true" label="Fill content">
+            <app-admin-nav-component [hidden]="showContentChildren===true"></app-admin-nav-component>
+            <router-outlet></router-outlet>
+        </mat-tab>
+        <mat-tab *ngIf="isLoggedIn===true" label="Log out">
+            <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 20px;">
+                <button mat-raised-button color="primary" type="button" (click)="logout()">Logout</button>
+            </div>
+        </mat-tab>
+        <mat-tab *ngIf="isLoggedIn===false" label="Register">
+            <app-register></app-register>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -5,7 +5,7 @@ import { HomeComponent } from './components/app-home';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader } from 'localize-router';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CustomTranslateLoader, defaultLangFunction } from './common/translate-loader';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MaterialModule } from './common/material.module';
@@ -22,8 +22,8 @@ export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full' },
     {path: 'home', component: HomeComponent},
     {path: 'contacts', component: ContactsComponent},
-    {path: 'admin', loadChildren: './lazy/admin.module#AdminModule'},
-    {path: 'lazy/nested', loadChildren: './lazy/admin.module#AdminModule'}
+    {path: 'admin', loadChildren: './admin-lazy/admin.module#AdminModule'},
+    /*{path: 'lazy/nested', loadChildren: './admin-lazy/admin.module#AdminModule'}*/
 ];
 
 @NgModule({

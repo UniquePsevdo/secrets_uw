@@ -7,6 +7,9 @@
   "Aboutpage": {
     "TranslationSections": "Nous sommes letsboot"
   },
+  "ADMIN": {
+    "stub": "stub"
+  },
   "CABINET": {
     "brand_name_ph": "Ім'я бренду",
     "full_address_ph": "Повна адреса",
@@ -24,6 +27,7 @@
     "error_region": "Оберіть Ваш регіон у відповідності до наданного переліку регіонів"
   },
   "HEADER": {
+    "admin": "Aдмiн",
     "home": "Головна",
     "about_us": "Про нас",
     "help": "Допомога",

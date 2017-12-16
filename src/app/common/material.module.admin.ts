@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import {
     MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule,
-    MatToolbarModule
+    MatToolbarModule, MatTabsModule
 } from '@angular/material';
 
 @NgModule({
@@ -13,7 +13,8 @@ import {
         MatInputModule,
         MatMenuModule,
         MatToolbarModule,
-        MatSelectModule
+        MatSelectModule,
+        MatTabsModule
     ]
 })
 export class MaterialModuleAdmin {

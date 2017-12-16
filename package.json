@@ -31,14 +31,9 @@
     "url": "git+https://github.com/bleenco/angular-webpack-seed.git"
   },
   "authors": [
-    "Jan Kuri <jkuri88@gmail.com>",
-    "Irman Abdic <irman.abdic@gmail.com>"
+    "Sydorov Volodymyr <wladimir.sidorow@gmail.com>"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bleenco/angular-webpack-seed/issues"
-  },
-  "homepage": "https://github.com/bleenco/angular-webpack-seed#readme",
   "dependencies": {
     "@angular/animations": "^5.0.1",
     "@angular/cdk": "^5.0.0-rc0",
