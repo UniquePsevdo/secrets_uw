@@ -5,8 +5,10 @@ import { Globals } from '../../globals';
 
 @Injectable()
 export class RefreshAuthInterceptor implements HttpInterceptor {
+    constructor(private globals: Globals) {
+    }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url === `${Globals['environment']['apiUrl']}${Globals['environment']['refresh_endpoint']}`
+    if (req.url === `${this.globals['environment']['apiUrl']}${this.globals['environment']['refresh_endpoint']}`
     && localStorage.getItem('refresh_token')) {
             const authHeader = `Bearer ${localStorage.getItem('refresh_token')}`;
             // Clone the request to add the new header.

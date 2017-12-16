@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {FormGroup, FormControl, Validators} from "@angular/forms";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../../data-services-admin/auth/authentication.service';
 
 @Component({
     selector: 'app-register',
@@ -9,7 +10,7 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 export class RegisterComponent {
     signUpForm: FormGroup;
 
-    constructor() {
+    constructor(private authenticationService: AuthenticationService) {
         this.signUpForm = new FormGroup({
             'email': new FormControl(null, [Validators.required, Validators.email]),
             'password': new FormControl(null, Validators.required)

@@ -5,8 +5,11 @@ export class GlobalsProd {
     public environment: any;
     constructor() {
         this.environment = {
+            production: true,
             apiUrl: 'http://localhost:3090/api',
-            production: true
+            token_endpoint: '/login',
+            refresh_endpoint: '/refresh',
+            envName: 'dev'
         }
     }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../../data-services-admin/auth/authentication.service';
 
 @Component({
     selector: 'app-login',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent {
     signInForm: FormGroup;
-    constructor() {
+    constructor(private authenticationService: AuthenticationService) {
         this.signInForm = new FormGroup({
             'email': new FormControl(null, [Validators.required, Validators.email]),
             'password': new FormControl(null, Validators.required)
@@ -16,7 +17,7 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        /*this.authenticationService.login(this.signInForm.value)
+        this.authenticationService.login(this.signInForm.value)
             .subscribe((data) => {
                     if (data) {
                         console.log(data);
@@ -25,7 +26,6 @@ export class LoginComponent {
                 (err) => {
                     console.log(err);
                 }
-            )*/
-        console.log('test');
+            )
     };
 }

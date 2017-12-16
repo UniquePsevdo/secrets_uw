@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 
 import { TokenStorage } from './token-storage.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Globals } from '../../globals';
 
 interface AccessData {
     accessToken: string;
@@ -21,7 +22,9 @@ export class AuthenticationService implements AuthService {
     isLoggedIn$: Observable<any>;
 
     constructor (private http: HttpClient,
-                 private tokenStorage: TokenStorage) {
+                 private tokenStorage: TokenStorage,
+                 private globals: Globals
+    ) {
         this.isLoggedIn = new BehaviorSubject<any>(false);
         this.isLoggedIn$ = this.isLoggedIn.asObservable();
     }
@@ -57,11 +60,13 @@ export class AuthenticationService implements AuthService {
      * can execute pending requests or retry original one
      * @returns {Observable<any>}
      */
-    public refreshToken (): Observable<AccessData> {
+
+    public refreshToken(): Observable < AccessData > {
         return this.tokenStorage
             .getRefreshToken()
             .switchMap((refreshToken: string) => {
-                return this.http.post(`http://localhost:3000/refresh`, {refreshToken});
+                return this.http.post(`${this.globals.environment['apiUrl']}${this.globals.environment['refresh_endpoint']}`,
+                    { refreshToken });
             })
             .do(this.saveAccessData.bind(this))
             .catch((err) => {
@@ -95,18 +100,34 @@ export class AuthenticationService implements AuthService {
     /**
      * EXTRA AUTH METHODS
      */
+    public login(body): Observable<any> {
+        return this.http.post(`${this.globals.environment.apiUrl}${this.globals.environment.token_endpoint}`, body)
+            .do((tokens: AccessData) => this.saveAccessData(tokens))
+            .catch((err: any) => {
+            console.log('login ', err);
+                return Observable.throw(err.statusText);
+            });
+    }
 
-    public login (): Observable<any> {
-        return this.http.post(`http://localhost:3000/login`, {})
-            .do((tokens: AccessData) => this.saveAccessData(tokens));
+    public register(body) {
+        return this.http.post(`${this.globals.environment.apiUrl}/register`, body)
+            .catch((error: Response) => {
+                return Observable.throw(error);
+            });
+    }
+
+    setIsLoggedIn (value) {
+        console.log('setIsLoggedIn ', value);
+        this.isLoggedIn.next(value);
     }
 
     /**
      * Logout
      */
     public logout (): void {
+        this.setIsLoggedIn(false);
         this.tokenStorage.clear();
-        location.reload(true);
+        /*location.reload(true);*/
     }
 
     /**
@@ -116,14 +137,9 @@ export class AuthenticationService implements AuthService {
      * @param {AccessData} data
      */
     private saveAccessData ({accessToken, refreshToken}: AccessData) {
-        /*this.setIsLoggedIn(true);*/
+        this.setIsLoggedIn(true);
         this.tokenStorage
             .setAccessToken(accessToken)
             .setRefreshToken(refreshToken);
-    }
-
-    setIsLoggedIn (value) {
-        console.log('setIsLoggedIn ', value);
-        this.isLoggedIn.next(value);
     }
 }

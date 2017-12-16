@@ -28,4 +28,9 @@ export class AdminComponent implements OnDestroy {
         this.isLoggedInSubscription.unsubscribe();
         this.childContentSubscription.unsubscribe();
     }
+
+    logout() {
+        this.authenticationService.logout();
+        this.dataService.setShowContentChildren(false);
+    }
 }
