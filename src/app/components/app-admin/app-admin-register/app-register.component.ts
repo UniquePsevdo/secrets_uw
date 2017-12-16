@@ -18,14 +18,14 @@ export class RegisterComponent {
     }
 
     onSubmit () {
-        /*this.authenticationService.register(this.signUpForm.value)
+        this.authenticationService.register(this.signUpForm.value)
             .subscribe((response) => {
                     console.log('response: ', response);
                 },
                 (data) => {
-                    this.errorService.handleError({title: data.error.error, message: data.error.error});
+                    // this.errorService.handleError({title: data.error.error, message: data.error.error});
                 }
-            )*/
+            )
         console.log('test');
     };
 
