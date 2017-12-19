@@ -16,6 +16,7 @@ export class AdminComponent implements OnDestroy {
 
     constructor(public authenticationService: AuthenticationService, private dataService: AdminInteractionData) {
         this.isLoggedInSubscription = this.authenticationService.isLoggedIn$.subscribe((value) => {
+            console.log('isLoggedInSubscription ', value);
             this.isLoggedIn = value;
         });
         this.childContentSubscription = this.dataService.showContentChildren$.subscribe((data) => {

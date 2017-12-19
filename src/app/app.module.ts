@@ -7,6 +7,7 @@ import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualPar
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomTranslateLoader, defaultLangFunction } from './common/translate-loader';
+import { PublicGuard, ProtectedGuard } from 'ngx-auth';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MaterialModule } from './common/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,13 +18,13 @@ import { GlobalsProd } from '../environment.prod';
 import { HeaderComponent } from './components/app-header/app-header.component';
 import { LangSwitcherComponent } from './components/app-lang-swicher/app-lang-switcher.component';
 import { ContactsComponent } from './components/app-contracts/app-contacts.component';
+import { AuthenticationModule } from './data-services-admin/auth/authentication.module';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full' },
     {path: 'home', component: HomeComponent},
     {path: 'contacts', component: ContactsComponent},
-    {path: 'admin', loadChildren: './admin-lazy/admin.module#AdminModule'},
-    /*{path: 'lazy/nested', loadChildren: './admin-lazy/admin.module#AdminModule'}*/
+    {path: 'admin', canActivate: [PublicGuard], loadChildren: './admin-lazy/admin.module#AdminModule'}
 ];
 
 @NgModule({
@@ -39,6 +40,7 @@ export const routes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         MaterialModule,
+        AuthenticationModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -60,6 +62,7 @@ export const routes: Routes = [
         BrowserModule.withServerTransition({appId: 'my-app'})
     ],
     providers: [
+        PublicGuard, ProtectedGuard,
         Location, {provide: LocationStrategy, useClass: PathLocationStrategy},
         Globals, GlobalsDev, GlobalsProd],
     bootstrap: [AppComponent]

@@ -10,6 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModuleAdmin } from '../common/material.module.admin';
 import { AuthenticationService } from '../data-services-admin/auth/authentication.service';
 import { AdminInteractionData } from '../data-services-admin/admin-interaction-data';
+import { AdminCabinetComponent } from '../components/app-admin/admin-content/app-admin-cabinet/app-admin-cabinet.component';
+import { AdminShowroomComponent } from '../components/app-admin/admin-content/app-admin-showroom/app-admin-showroom.component';
+import { AdminEventsComponent } from '../components/app-admin/admin-content/app-admin-events/app-admin-events.component';
 
 @Component({
     selector: 'app-admin',
@@ -20,14 +23,18 @@ export class LazyComponent {
 }
 
 @NgModule({
-    declarations: [ AdminComponent, LazyComponent, LoginComponent, RegisterComponent, AdminNavComponent ],
+    declarations: [ AdminComponent, LazyComponent, AdminCabinetComponent, AdminShowroomComponent, AdminEventsComponent,
+        LoginComponent, RegisterComponent, AdminNavComponent ],
     imports: [
         CommonModule,
         ReactiveFormsModule, FormsModule,
         MaterialModuleAdmin,
         AuthenticationModule,
         RouterModule.forChild([
-            {path: '', component: AdminComponent, pathMatch: 'full'}
+            {path: '', component: AdminComponent, pathMatch: 'full'},
+            {path: 'cabinet', component: AdminCabinetComponent},
+            {path: 'showroom', component: AdminShowroomComponent},
+            {path: 'events', component: AdminEventsComponent}
         ])
     ],
     providers: [

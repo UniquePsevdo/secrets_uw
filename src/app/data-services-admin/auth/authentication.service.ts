@@ -12,8 +12,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Globals } from '../../globals';
 
 interface AccessData {
-    accessToken: string;
-    refreshToken: string;
+    token: string;
+    refresh_token: string;
 }
 
 @Injectable()
@@ -25,6 +25,7 @@ export class AuthenticationService implements AuthService {
                  private tokenStorage: TokenStorage,
                  private globals: Globals
     ) {
+        console.log(1);
         this.isLoggedIn = new BehaviorSubject<any>(false);
         this.isLoggedIn$ = this.isLoggedIn.asObservable();
     }
@@ -39,8 +40,11 @@ export class AuthenticationService implements AuthService {
         return this.tokenStorage
             .getAccessToken()
             .map((token) => {
+                console.log('isAuthorized', token);
                 this.setIsLoggedIn(!!token);
                 return !!token
+            }).catch((error: any) => {
+                return Observable.throw(error);
             });
     }
 
@@ -136,10 +140,10 @@ export class AuthenticationService implements AuthService {
      * @private
      * @param {AccessData} data
      */
-    private saveAccessData ({accessToken, refreshToken}: AccessData) {
+    private saveAccessData ({token, refresh_token}: AccessData) {
         this.setIsLoggedIn(true);
         this.tokenStorage
-            .setAccessToken(accessToken)
-            .setRefreshToken(refreshToken);
+            .setAccessToken(token)
+            .setRefreshToken(refresh_token);
     }
 }
