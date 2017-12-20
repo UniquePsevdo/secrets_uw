@@ -44,5 +44,6 @@ export class AdminComponent implements OnDestroy {
     logout() {
         this.authenticationService.logout();
         this.adminDataService.setShowContentChildren(false);
+        this.adminDataService.setActiveTab(0);
     }
 }
