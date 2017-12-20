@@ -18,15 +18,14 @@ interface AccessData {
 
 @Injectable()
 export class AuthenticationService implements AuthService {
-    /*private isLoggedIn: BehaviorSubject<any>;
-    isLoggedIn$: Observable<any>;*/
+    private isLoggedIn: BehaviorSubject<any>;
+    isLoggedIn$: Observable<any>;
 
     constructor (private http: HttpClient,
                  private tokenStorage: TokenStorage,
-                 private globals: Globals
-    ) {
-        /*this.isLoggedIn = new BehaviorSubject<any>(false);
-        this.isLoggedIn$ = this.isLoggedIn.asObservable();*/
+                 private globals: Globals) {
+        this.isLoggedIn = new BehaviorSubject<any>(localStorage.getItem('token') !== null);
+        this.isLoggedIn$ = this.isLoggedIn.asObservable();
     }
 
     /**
@@ -39,6 +38,7 @@ export class AuthenticationService implements AuthService {
         return this.tokenStorage
             .getAccessToken()
             .map((token) => {
+                this.setIsLoggedIn(!!token);
                 return !!token
             }).catch((error: any) => {
                 return Observable.throw(error);
@@ -55,6 +55,14 @@ export class AuthenticationService implements AuthService {
         return this.tokenStorage.getAccessToken();
     }
 
+    setIsLoggedIn (value) {
+        this.isLoggedIn.next(value);
+    }
+
+    checkIfLoggedIn () {
+        this.isLoggedIn.next(localStorage.getItem('token') !== null);
+    }
+
     /**
      * Function, that should perform refresh token verifyTokenRequest
      * @description Should be successfully completed so interceptor
@@ -62,12 +70,12 @@ export class AuthenticationService implements AuthService {
      * @returns {Observable<any>}
      */
 
-    public refreshToken(): Observable < AccessData > {
+    public refreshToken (): Observable<AccessData> {
         return this.tokenStorage
             .getRefreshToken()
             .switchMap((refreshToken: string) => {
-                return this.http.post(`${this.globals.environment['apiUrl']}${this.globals.environment['refresh_endpoint']}`,
-                    { refreshToken });
+                return this.http.post(`${this.globals.environment[ 'apiUrl' ]}${this.globals.environment[ 'refresh_endpoint' ]}`,
+                    {refreshToken});
             })
             .do(this.saveAccessData.bind(this))
             .catch((err) => {
@@ -101,16 +109,16 @@ export class AuthenticationService implements AuthService {
     /**
      * EXTRA AUTH METHODS
      */
-    public login(body): Observable<any> {
+    public login (body): Observable<any> {
         return this.http.post(`${this.globals.environment.apiUrl}${this.globals.environment.token_endpoint}`, body)
             .do((tokens: AccessData) => this.saveAccessData(tokens))
             .catch((err: any) => {
-            console.log('login ', err);
+                console.log('login ', err);
                 return Observable.throw(err.statusText);
             });
     }
 
-    public register(body) {
+    public register (body) {
         return this.http.post(`${this.globals.environment.apiUrl}/register`, body)
             .catch((error: Response) => {
                 return Observable.throw(error);
@@ -122,7 +130,8 @@ export class AuthenticationService implements AuthService {
      */
     public logout (): void {
         this.tokenStorage.clear();
-        location.reload(true);
+        /*location.reload(true);*/
+        this.checkIfLoggedIn();
     }
 
     /**
