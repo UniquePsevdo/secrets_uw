@@ -48,7 +48,6 @@ export class LangSwitcherComponent {
             }));
 
         } else if (lang === this.translate.defaultLang && lang !== this.translate.currentLang) {
-            // this.location.replaceState(path);
             this.router.navigateByUrl(this.removeLastHash(path), {replaceUrl: true, skipLocationChange: false}).
             then((bool) => {
                 this.localize.changeLanguage(lang, {}, true);

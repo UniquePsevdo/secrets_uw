@@ -1,5 +1,5 @@
 <div class="padding" style="margin-top: 150px">
-    <mat-tab-group>
+    <mat-tab-group [(selectedIndex)]="selectedTabIndex">
         <mat-tab *ngIf="isLoggedIn===false" label="Log In">
             <app-login></app-login>
         </mat-tab>

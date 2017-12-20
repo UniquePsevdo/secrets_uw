@@ -13,24 +13,36 @@ export class AdminComponent implements OnDestroy {
     isLoggedIn: boolean;
     isLoggedInSubscription: Subscription;
     childContentSubscription: Subscription;
+    selectedTabSubscription: Subscription;
+    selectedTabIndex: number;
 
-    constructor(public authenticationService: AuthenticationService, private dataService: AdminInteractionData) {
+    constructor(public authenticationService: AuthenticationService, private adminDataService: AdminInteractionData) {
         this.isLoggedInSubscription = this.authenticationService.isLoggedIn$.subscribe((value) => {
             this.isLoggedIn = value;
         });
-        this.childContentSubscription = this.dataService.showContentChildren$.subscribe((data) => {
+        this.childContentSubscription = this.adminDataService.showContentChildren$.subscribe((data) => {
             this.showContentChildren = data;
+        });
+        this.selectedTabSubscription = this.adminDataService.selectedTabIndex$.subscribe((index) => {
+            this.selectedTabIndex = index;
         });
 
     }
 
-    ngOnDestroy (): void {
-        this.isLoggedInSubscription.unsubscribe();
-        this.childContentSubscription.unsubscribe();
+    ngOnDestroy () {
+        if (this.isLoggedInSubscription) {
+            this.isLoggedInSubscription.unsubscribe();
+        }
+        if (this.childContentSubscription) {
+            this.childContentSubscription.unsubscribe();
+        }
+        if (this.selectedTabSubscription) {
+            this.selectedTabSubscription.unsubscribe();
+        }
     }
 
     logout() {
         this.authenticationService.logout();
-        this.dataService.setShowContentChildren(false);
+        this.adminDataService.setShowContentChildren(false);
     }
 }
