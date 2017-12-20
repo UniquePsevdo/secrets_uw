@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminComponent } from '../components/app-admin/app-admin.component';
 import { AdminNavComponent } from '../components/app-admin/app-admin-nav-component';
-import { AuthenticationModule } from '../data-services-admin/auth/authentication.module';
+/*import { AuthenticationModule } from '../data-services-admin/auth/authentication.module';*/
 import { LoginComponent } from '../components/app-admin/app-admin-login/app-login.component';
 import { RegisterComponent } from '../components/app-admin/app-admin-register/app-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +29,7 @@ export class LazyComponent {
         CommonModule,
         ReactiveFormsModule, FormsModule,
         MaterialModuleAdmin,
-        AuthenticationModule,
+        /*AuthenticationModule,*/
         RouterModule.forChild([
             {path: '', component: AdminComponent, pathMatch: 'full'},
             {path: 'cabinet', component: AdminCabinetComponent},
