@@ -18,16 +18,15 @@ interface AccessData {
 
 @Injectable()
 export class AuthenticationService implements AuthService {
-    private isLoggedIn: BehaviorSubject<any>;
-    isLoggedIn$: Observable<any>;
+    /*private isLoggedIn: BehaviorSubject<any>;
+    isLoggedIn$: Observable<any>;*/
 
     constructor (private http: HttpClient,
                  private tokenStorage: TokenStorage,
                  private globals: Globals
     ) {
-        console.log(1);
-        this.isLoggedIn = new BehaviorSubject<any>(false);
-        this.isLoggedIn$ = this.isLoggedIn.asObservable();
+        /*this.isLoggedIn = new BehaviorSubject<any>(false);
+        this.isLoggedIn$ = this.isLoggedIn.asObservable();*/
     }
 
     /**
@@ -40,8 +39,6 @@ export class AuthenticationService implements AuthService {
         return this.tokenStorage
             .getAccessToken()
             .map((token) => {
-                console.log('isAuthorized', token);
-                this.setIsLoggedIn(!!token);
                 return !!token
             }).catch((error: any) => {
                 return Observable.throw(error);
@@ -120,18 +117,12 @@ export class AuthenticationService implements AuthService {
             });
     }
 
-    setIsLoggedIn (value) {
-        console.log('setIsLoggedIn ', value);
-        this.isLoggedIn.next(value);
-    }
-
     /**
      * Logout
      */
     public logout (): void {
-        this.setIsLoggedIn(false);
         this.tokenStorage.clear();
-        /*location.reload(true);*/
+        location.reload(true);
     }
 
     /**
@@ -141,7 +132,6 @@ export class AuthenticationService implements AuthService {
      * @param {AccessData} data
      */
     private saveAccessData ({token, refresh_token}: AccessData) {
-        this.setIsLoggedIn(true);
         this.tokenStorage
             .setAccessToken(token)
             .setRefreshToken(refresh_token);

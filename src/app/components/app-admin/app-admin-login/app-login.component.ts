@@ -22,6 +22,7 @@ export class LoginComponent {
                     if (data) {
                         console.log(data);
                     }
+                    this.authenticationService.isAuthorized();
                 },
                 (err) => {
                     console.log(err);
