@@ -19,6 +19,7 @@ import { HeaderComponent } from './components/app-header/app-header.component';
 import { LangSwitcherComponent } from './components/app-lang-swicher/app-lang-switcher.component';
 import { ContactsComponent } from './components/app-contracts/app-contacts.component';
 import { AuthenticationModule } from './data-services-admin/auth/authentication.module';
+import { MatAutocompleteModule } from '@angular/material';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full' },
@@ -40,6 +41,7 @@ export const routes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         MaterialModule,
+        MatAutocompleteModule,
         AuthenticationModule,
         TranslateModule.forRoot({
             loader: {
@@ -59,7 +61,7 @@ export const routes: Routes = [
             useCachedLang: false,
             defaultLangFunction: defaultLangFunction
         }),
-        BrowserModule.withServerTransition({appId: 'my-app'})
+        BrowserModule.withServerTransition({appId: 'my-app'}),
     ],
     providers: [
         PublicGuard, ProtectedGuard,

@@ -13,6 +13,7 @@ import { AdminInteractionData } from '../data-services-admin/admin-interaction-d
 import { AdminCabinetComponent } from '../components/app-admin/admin-content/app-admin-cabinet/app-admin-cabinet.component';
 import { AdminShowroomComponent } from '../components/app-admin/admin-content/app-admin-showroom/app-admin-showroom.component';
 import { AdminEventsComponent } from '../components/app-admin/admin-content/app-admin-events/app-admin-events.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-admin',
@@ -29,6 +30,7 @@ export class LazyComponent {
         CommonModule,
         ReactiveFormsModule, FormsModule,
         MaterialModuleAdmin,
+        TranslateModule,
         /*AuthenticationModule,*/
         RouterModule.forChild([
             {path: '', component: AdminComponent, pathMatch: 'full'},
