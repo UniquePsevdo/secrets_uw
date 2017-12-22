@@ -52,7 +52,7 @@
     "exports-loader": "^0.6.4",
     "express": "^4.16.2",
     "image-webpack-loader": "^3.4.2",
-    "localize-router": "^1.0.0-rc.2",
+    "localize-router": "1.0.0-rc.3",
     "ngx-auth": "^3.0.0",
     "postcss-custom-properties": "^6.2.0",
     "postcss-loader": "^2.0.9",

@@ -8,14 +8,14 @@
 Ссылки в интернете - массив строк
 -->
 <form [formGroup]="cabinetForm" *ngIf="cabinetForm" style="margin-top: 20px">
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <mat-input-container fxFlex="50%" style="padding:0 10px 0 0">
+    <div class="container" style="justify-content: space-between">
+        <mat-input-container style="padding:0 10px 0 0; width: 100%">
             <input matInput formControlName="name" type="text" placeholder="{{'CABINET.brand_name_ph' | translate}}">
             <mat-error *ngIf="!cabinetForm.get('name').valid && cabinetForm.get('name').touched">
                 <span *ngIf="cabinetForm.get('name').errors.required">{{'FORMS.error_required' | translate}}</span>
             </mat-error>
         </mat-input-container>
-        <mat-input-container fxFlex="50%" style="padding:0 10px 0 0">
+        <mat-input-container style="padding:0 10px 0 0; width: 100%">
             <input matInput placeholder="{{'CABINET.region_ph' | translate}}"
                    aria-label="Region"
                    [matAutocomplete]="auto"
@@ -34,24 +34,25 @@
         </mat-input-container>
 
     </div>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <mat-input-container fxFlex="50%" style="padding:0 10px 0 0">
+    <div class="container" style="justify-content: space-between">
+        <mat-input-container style="padding:0 10px 0 0; width: 100%">
             <input matInput formControlName="email" type="email" placeholder="E-mail">
             <mat-error *ngIf="!cabinetForm.get('email').valid && cabinetForm.get('email').touched">
                 <span *ngIf="cabinetForm.get('email').errors.required">{{'FORMS.error_required' | translate}}</span>
                 <span *ngIf="cabinetForm.get('email').errors.email && !cabinetForm.get('email').errors.required">{{'FORMS.error_email' | translate}}</span>
             </mat-error>
         </mat-input-container>
-        <mat-input-container fxFlex="50%" style="padding:0 10px 0 0">
+        <mat-input-container style="padding:0 10px 0 0; width: 100%">
             <input matInput formControlName="fullAddress" type="text" placeholder="{{'CABINET.full_address_ph' | translate}}">
             <mat-error *ngIf="!cabinetForm.get('fullAddress').valid && cabinetForm.get('fullAddress').touched">
                 <span *ngIf="cabinetForm.get('fullAddress').errors.required">{{'FORMS.error_required' | translate}}</span>
             </mat-error>
         </mat-input-container>
     </div>
-    <div fxLayout="row" fxLayoutAlign="center top">
-        <div fxFlex="50%" style="padding:0 10px 0 0">
-            <image-upload
+    <div class="container" style="justify-content: space-between">
+        <div style="padding:0 10px 0 0; width: 100%">
+            image upload
+            <!--<image-upload
                     [max]="1"
                     [class]="'customClass'"
                     buttonCaption="{{'CABINET.logo_btn_caption' | translate}}"
@@ -59,10 +60,11 @@
                     dropBoxMessage="{{'CABINET.logo_drop_msg' | translate}}"
                     clearButtonCaption="Clear logo"
                     clearButtonCaption="{{'CABINET.logo_clear_msg' | translate}}"
-                    (uploadFinished)="onLogoUploadFinished($event, 'logoImage')"></image-upload>
+                    (uploadFinished)="onLogoUploadFinished($event, 'logoImage')"></image-upload>-->
         </div>
-        <div fxFlex="50%" style="padding:0 10px 0 0">
-            <image-upload
+        <div style="padding:0 10px 0 0; width: 100%">
+            image upload
+            <!--<image-upload
                     [max]="1"
                     [class]="'customClass'"
                     buttonCaption="{{'CABINET.cover_btn_caption' | translate}}"
@@ -71,7 +73,7 @@
                     clearButtonCaption="Clear cover"
                     clearButtonCaption="{{'CABINET.cover_clear_msg' | translate}}"
                     (uploadFinished)="onLogoUploadFinished($event, 'coverImage')"
-            ></image-upload>
+            ></image-upload>-->
         </div>
     </div>
 </form>

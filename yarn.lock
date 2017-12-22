@@ -4039,9 +4039,9 @@ loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
-localize-router@^1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/localize-router/-/localize-router-1.0.0-rc.2.tgz#9b3bf0ed563c0a79392c95d68f04da0733c26fe9"
+localize-router@1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/localize-router/-/localize-router-1.0.0-rc.3.tgz#97d4297a793e54467ed849c16e73fbd2ca146aae"
 
 locate-path@^2.0.0:
   version "2.0.0"

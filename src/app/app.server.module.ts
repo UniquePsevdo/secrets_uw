@@ -1,7 +1,7 @@
 import { Injectable, NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-import { AppModule, routes } from './app.module';
+import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { Globals } from './globals';
 import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader } from 'localize-router';
@@ -11,6 +11,8 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { defaultLangFunction } from './common/translate-loader';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
+import { UsersModule } from './users/users.module';
+import { AppRoutingModule } from './app-routing.module';
 Globals.setEnvironment('prod');
 
 @Injectable()
@@ -58,21 +60,11 @@ export function translateLoaderFactory() {
             useFactory: translateLoaderFactory
         }
     }),
-        RouterModule.forRoot(routes),
-        LocalizeRouterModule.forRoot(routes, {
-            parser: {
-                provide: LocalizeParser,
-                useFactory: (translate, location, settings) =>
-                    new ManualParserLoader(translate, location, settings, ['ua', 'en'], 'ROUTES'),
-                deps: [TranslateService, Location, LocalizeRouterSettings]
-            },
-            alwaysSetPrefix: false,
-            useCachedLang: false,
-            defaultLangFunction: defaultLangFunction
-        }),
         AppModule,
         ServerModule,
-        ModuleMapLoaderModule
+        ModuleMapLoaderModule,
+        UsersModule,
+        AppRoutingModule,
     ],
     bootstrap: [AppComponent]
 })
