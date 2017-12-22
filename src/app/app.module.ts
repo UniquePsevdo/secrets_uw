@@ -12,11 +12,11 @@ import { Globals } from './globals';
 import { GlobalsDev } from '../environment';
 import { GlobalsProd } from '../environment.prod';
 import { AuthenticationModule } from './data-services-admin/auth/authentication.module';
-import { MatAutocompleteModule } from '@angular/material';
 import { UsersModule } from './users/users.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './components/app-header/app-header.component';
 import { LangSwitcherComponent } from './components/app-lang-swicher/app-lang-switcher.component';
+import { MaterialModuleAdmin } from './common/material.module.admin';
 
 @NgModule({
     declarations: [
@@ -28,7 +28,7 @@ import { LangSwitcherComponent } from './components/app-lang-swicher/app-lang-sw
         BrowserAnimationsModule,
         HttpClientModule,
         MaterialModule,
-        MatAutocompleteModule,
+        MaterialModuleAdmin,
         AuthenticationModule,
         TranslateModule.forRoot({
             loader: {
