@@ -1,7 +1,8 @@
 // angular
 import { NgModule } from '@angular/core';
 import {
-    MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule,
+    MatAutocompleteModule,
+    MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule, MatTabsModule,
     MatToolbarModule
 } from '@angular/material';
 
@@ -13,7 +14,9 @@ import {
         MatInputModule,
         MatMenuModule,
         MatToolbarModule,
-        MatSelectModule
+        MatSelectModule,
+        MatTabsModule,
+        MatAutocompleteModule
     ]
 })
 export class MaterialModule {

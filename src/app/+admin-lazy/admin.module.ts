@@ -5,7 +5,6 @@ import { AdminNavComponent } from '../components/app-admin/app-admin-nav-compone
 import { LoginComponent } from '../components/app-admin/app-admin-login/app-login.component';
 import { RegisterComponent } from '../components/app-admin/app-admin-register/app-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModuleAdmin } from '../common/material.module.admin';
 import { AuthenticationService } from '../data-services-admin/auth/authentication.service';
 import { AdminInteractionData } from '../data-services-admin/admin-interaction-data';
 import { AdminCabinetComponent } from '../components/app-admin/admin-content/app-admin-cabinet/app-admin-cabinet.component';
@@ -20,7 +19,6 @@ import { AdminRoutingModule } from './admin-routing.module';
     imports: [
         CommonModule,
         ReactiveFormsModule, FormsModule,
-        MaterialModuleAdmin,
         TranslateModule,
         AdminRoutingModule
     ],
