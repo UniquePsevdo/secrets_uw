@@ -2,9 +2,8 @@
 import { NgModule } from '@angular/core';
 import {
     MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule,
-    MatToolbarModule, MatAutocompleteModule
+    MatToolbarModule, MatAutocompleteModule, MatTabsModule, MAT_RIPPLE_GLOBAL_OPTIONS
 } from '@angular/material';
-import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
     exports: [
@@ -17,6 +16,9 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatSelectModule,
         MatTabsModule,
         MatAutocompleteModule
+    ],
+    providers: [
+        {provide: MAT_RIPPLE_GLOBAL_OPTIONS}
     ]
 })
 export class MaterialModuleAdmin {

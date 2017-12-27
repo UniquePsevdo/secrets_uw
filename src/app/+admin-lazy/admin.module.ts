@@ -12,12 +12,14 @@ import { AdminShowroomComponent } from '../components/app-admin/admin-content/ap
 import { AdminEventsComponent } from '../components/app-admin/admin-content/app-admin-events/app-admin-events.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdminRoutingModule } from './admin-routing.module';
+import { MaterialModuleAdmin } from '../common/material.module.admin';
 
 @NgModule({
     declarations: [ AdminComponent, AdminCabinetComponent, AdminShowroomComponent, AdminEventsComponent,
         LoginComponent, RegisterComponent, AdminNavComponent ],
     imports: [
         CommonModule,
+        MaterialModuleAdmin,
         ReactiveFormsModule, FormsModule,
         TranslateModule,
         AdminRoutingModule

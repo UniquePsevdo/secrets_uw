@@ -28,7 +28,6 @@ import { MaterialModuleAdmin } from './common/material.module.admin';
         BrowserAnimationsModule,
         HttpClientModule,
         MaterialModule,
-        MaterialModuleAdmin,
         AuthenticationModule,
         TranslateModule.forRoot({
             loader: {
