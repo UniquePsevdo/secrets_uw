@@ -1,3 +1,4 @@
+- admin parameters: cabinet, showroom, events
 - add more props on admin registration form
 - check and clear unused material components from modules
 - check/change image loader

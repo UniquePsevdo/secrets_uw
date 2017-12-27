@@ -1,20 +1,16 @@
 // angular
 import { NgModule } from '@angular/core';
 import {
-    MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule,
-    MatToolbarModule, MatAutocompleteModule, MatTabsModule, RippleGlobalOptions
+    MatButtonModule, MatInputModule, MatSelectModule, MatAutocompleteModule, MatTabsModule, MatIconModule
 } from '@angular/material';
 
 @NgModule({
     exports: [
         MatButtonModule,
-        MatCardModule,
-        MatIconModule,
         MatInputModule,
-        MatMenuModule,
-        MatToolbarModule,
         MatSelectModule,
         MatTabsModule,
+        MatIconModule,
         MatAutocompleteModule
     ]
 })
