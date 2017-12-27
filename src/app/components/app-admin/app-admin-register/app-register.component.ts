@@ -11,7 +11,7 @@ import { AdminInteractionData } from '../../../data-services-admin/admin-interac
 export class RegisterComponent {
     signUpForm: FormGroup;
 
-    constructor(private authenticationService: AuthenticationService, private adminDataService: AdminInteractionData) {
+    constructor(public authenticationService: AuthenticationService, public adminDataService: AdminInteractionData) {
         this.signUpForm = new FormGroup({
             'email': new FormControl(null, [Validators.required, Validators.email]),
             'password': new FormControl(null, Validators.required)

@@ -27,7 +27,7 @@ export class AdminCabinetComponent {
     logoImage: any;
     coverImage: any;
 
-    constructor(private dataService: AdminInteractionData, private globals: Globals) {
+    constructor(public dataService: AdminInteractionData, private globals: Globals) {
         this.logoUploadUrl = `${this.globals.environment.apiUrl}/cabinet/logo`;
         this.dataService.setShowContentChildren(true);
         this.regions = [

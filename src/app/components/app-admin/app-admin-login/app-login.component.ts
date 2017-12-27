@@ -12,7 +12,7 @@ export class LoginComponent implements OnDestroy {
     signInForm: FormGroup;
     loginSubscription: Subscription;
 
-    constructor (private authenticationService: AuthenticationService) {
+    constructor (public authenticationService: AuthenticationService) {
         this.signInForm = new FormGroup({
             'email': new FormControl(null, [ Validators.required, Validators.email ]),
             'password': new FormControl(null, Validators.required)

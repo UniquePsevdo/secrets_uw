@@ -16,7 +16,7 @@ export class AdminComponent implements OnDestroy {
     selectedTabSubscription: Subscription;
     selectedTabIndex: number;
 
-    constructor(public authenticationService: AuthenticationService, private adminDataService: AdminInteractionData) {
+    constructor(public authenticationService: AuthenticationService, public adminDataService: AdminInteractionData) {
         this.isLoggedInSubscription = this.authenticationService.isLoggedIn$.subscribe((value) => {
             this.isLoggedIn = value;
         });
