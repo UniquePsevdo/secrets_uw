@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {InjectionToken, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from '../components/app-admin/app-admin.component';
 import { AdminNavComponent } from '../components/app-admin/app-admin-nav-component';
@@ -14,7 +14,8 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { MaterialModuleAdmin } from '../common/material.module.admin';
 import { COMPOSITION_BUFFER_MODE, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import {
-    MAT_LABEL_GLOBAL_OPTIONS, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatOptgroup, RippleGlobalOptions
+    MAT_LABEL_GLOBAL_OPTIONS, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatOptgroup,
+    MatOptionParentComponent, RippleGlobalOptions
 } from '@angular/material';
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -35,7 +36,8 @@ const globalRippleConfig: RippleGlobalOptions = {
     providers: [
         AuthenticationService, AdminInteractionData, NgForm, MatOptgroup,
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig},
-        {provide: COMPOSITION_BUFFER_MODE, useValue: false}, {provide: MAT_OPTION_PARENT_COMPONENT},
+        {provide: COMPOSITION_BUFFER_MODE, useValue: false},
+        {provide: MAT_OPTION_PARENT_COMPONENT, useClass: new InjectionToken<MatOptionParentComponent>('MAT_OPTION_PARENT_COMPONENT')},
         {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}}
     ]
 })
