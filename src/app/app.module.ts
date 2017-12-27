@@ -17,7 +17,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './components/app-header/app-header.component';
 import { LangSwitcherComponent } from './components/app-lang-swicher/app-lang-switcher.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModuleAdmin } from './common/material.module.admin';
 
 @NgModule({
     declarations: [

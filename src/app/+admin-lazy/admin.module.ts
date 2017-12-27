@@ -12,7 +12,15 @@ import { AdminEventsComponent } from '../components/app-admin/admin-content/app-
 import { TranslateModule } from '@ngx-translate/core';
 import { AdminRoutingModule } from './admin-routing.module';
 import { MaterialModuleAdmin } from '../common/material.module.admin';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { COMPOSITION_BUFFER_MODE, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import {
+    MAT_LABEL_GLOBAL_OPTIONS, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatOptgroup, RippleGlobalOptions
+} from '@angular/material';
+
+const globalRippleConfig: RippleGlobalOptions = {
+    disabled: true,
+    baseSpeedFactor: 1.5 // Ripples will animate 50% faster than before.
+}
 
 @NgModule({
     declarations: [ AdminComponent, AdminCabinetComponent, AdminShowroomComponent, AdminEventsComponent,
@@ -21,14 +29,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         CommonModule,
         ReactiveFormsModule, FormsModule,
         AdminRoutingModule,
-        /*MaterialModuleAdmin,*/
+        MaterialModuleAdmin,
         TranslateModule
     ],
     providers: [
-        AuthenticationService,
-        AdminInteractionData
+        AuthenticationService, AdminInteractionData, NgForm, MatOptgroup,
+        {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig},
+        {provide: COMPOSITION_BUFFER_MODE, useValue: false}, {provide: MAT_OPTION_PARENT_COMPONENT},
+        {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}}
     ]
 })
 export class AdminModule {
-
 }
+
+
