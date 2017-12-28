@@ -15,5 +15,7 @@
     "typeRoots": [
       "node_modules/@types"
     ]
-  }
+  },
+  "include": [ "./**/*.ts", "./node_modules/ngx-uploader/src/ngx-uploader/**/*.ts" ],
+  "exclude": [ "test.ts", "**/*.spec.ts", "./node_modules/ngx-uploader/src/**/*.spec.ts" ]
 }

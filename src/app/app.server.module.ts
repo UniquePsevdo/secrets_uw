@@ -4,11 +4,10 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { Globals } from './globals';
-import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader } from 'localize-router';
-import { RouterModule, Routes } from '@angular/router';
+import { LocalizeParser, LocalizeRouterSettings } from 'localize-router';
+import { Routes } from '@angular/router';
 import * as fs from 'fs';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { defaultLangFunction } from './common/translate-loader';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { UsersModule } from './users/users.module';

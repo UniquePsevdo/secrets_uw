@@ -17,6 +17,7 @@ import {
     MAT_LABEL_GLOBAL_OPTIONS, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatOptgroup,
     MatOptionParentComponent, RippleGlobalOptions
 } from '@angular/material';
+import { NgUploaderModule } from 'ngx-uploader';
 
 const globalRippleConfig: RippleGlobalOptions = {
     disabled: true,
@@ -29,8 +30,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         CommonModule,
         ReactiveFormsModule, FormsModule,
         AdminRoutingModule,
-        MaterialModuleAdmin,
-        TranslateModule
+        TranslateModule, MaterialModuleAdmin,
+        NgUploaderModule
     ],
     declarations: [AdminComponent, AdminCabinetComponent, AdminShowroomComponent, AdminEventsComponent,
         LoginComponent, RegisterComponent, AdminNavComponent],

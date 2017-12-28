@@ -2495,10 +2495,6 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-font-awesome@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
-
 for-each@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.2.tgz#2c40450b9348e97f281322593ba96704b9abd4d4"
@@ -4605,6 +4601,10 @@ ngx-auth@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ngx-auth/-/ngx-auth-3.0.0.tgz#36ca64edd134364033eae05a39dffc438156ae9d"
 
+ngx-uploader@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/ngx-uploader/-/ngx-uploader-4.2.1.tgz#bf5a46ebb438e89566485fcb750f00fd179d9f55"
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
@@ -5568,10 +5568,6 @@ pretty-error@^2.0.2:
   dependencies:
     renderkid "^2.0.1"
     utila "~0.4"
-
-primeng@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-5.0.2.tgz#05c4a4502efd4c3bc5d506aa01ae8eb30f9764db"
 
 private@~0.1.5:
   version "0.1.8"

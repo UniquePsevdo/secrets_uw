@@ -173,17 +173,22 @@ export class AdminCabinetComponent {
         )
     }
 
-    onLogoUploadFinished(event, imageKey) {
-        this.readThis(event.file, imageKey);
+    myUploader(event) {
+        // event.files == files to upload
+        console.log(event);
     }
 
-    readThis(file: File, imageKey): void {
+    /*onLogoUploadFinished(event, imageKey) {
+        this.readThis(event.file, imageKey);
+    }*/
+
+    /*readThis(file: File, imageKey): void {
         let fileReader: FileReader = new FileReader();
         fileReader.onloadend = (e) => {
             this[imageKey] = fileReader.result;
         }
         fileReader.readAsDataURL(file);
-    }
+    }*/
 
     filterRegions(name: string) {
         return this.regions.filter(state =>
