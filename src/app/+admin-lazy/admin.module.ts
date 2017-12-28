@@ -18,10 +18,11 @@ import {
     MatOptionParentComponent, RippleGlobalOptions
 } from '@angular/material';
 import { NgUploaderModule } from 'ngx-uploader';
+import { FileUploaderComponent } from '../components/app-file-uploader/app-file-uploader.component';
 
 const globalRippleConfig: RippleGlobalOptions = {
     disabled: true,
-    baseSpeedFactor: 1.5 // Ripples will animate 50% faster than before.
+    baseSpeedFactor: 1.5 // Ripples will animate 50% faster than before
 }
 
 @NgModule
@@ -34,7 +35,7 @@ const globalRippleConfig: RippleGlobalOptions = {
         NgUploaderModule
     ],
     declarations: [AdminComponent, AdminCabinetComponent, AdminShowroomComponent, AdminEventsComponent,
-        LoginComponent, RegisterComponent, AdminNavComponent],
+        LoginComponent, RegisterComponent, AdminNavComponent, FileUploaderComponent],
     providers: [
         AuthenticationService, AdminInteractionData, NgForm, MatOptgroup,
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig},
