@@ -2,7 +2,7 @@ import { Component, EventEmitter } from '@angular/core';
 import { UploaderOptions, UploadFile, UploadInput, UploadOutput, humanizeBytes } from 'ngx-uploader';
 
 @Component({
-    selector: 'app-stub',
+    selector: 'app-file-uploader',
     templateUrl: 'app-file-uploader.component.html',
     styleUrls: ['app-file-uploader.component.scss']
 })
