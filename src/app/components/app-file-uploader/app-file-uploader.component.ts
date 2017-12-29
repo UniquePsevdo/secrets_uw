@@ -1,8 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
-import {
-    UploaderOptions, UploadFile, UploadInput,
-    UploadOutput
-} from 'ngx-uploader/src/ngx-uploader/classes/interfaces';
+import { UploaderOptions, UploadFile, UploadInput, UploadOutput, humanizeBytes } from 'ngx-uploader';
 
 @Component({
     selector: 'app-stub',
