@@ -15,4 +15,6 @@ apiRouter.post('/refresh', requireAuth, AuthenticationCtrl.login);
 apiRouter.get('/locales', I18nCtrl.getLocales);
 apiRouter.get('/translations', I18nCtrl.sendTranslations);
 
+apiRouter.get('/admin/cabinet/logo', CabinetCtrl.getLogo);
+
 module.exports = apiRouter;

@@ -15,7 +15,8 @@ export class FileUploaderComponent {
     dragOver: boolean;
 
     constructor() {
-        this.files = []; // local uploading files array
+        this.options = { concurrency: 1, allowedContentTypes: ['image/png', 'image/jpeg', 'image/gif'] };
+        this.files = [];
         this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
         this.humanizeBytes = humanizeBytes;
     }
@@ -45,6 +46,8 @@ export class FileUploaderComponent {
             this.dragOver = false;
         } else if (output.type === 'drop') {
             this.dragOver = false;
+        } else if (output.type === 'rejected' && typeof output.file !== 'undefined') {
+            console.log(output.file.name + ' rejected');
         }
     }
 
