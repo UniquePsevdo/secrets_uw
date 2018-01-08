@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const i18n = require('i18n');
 const path = require('path');
+
 const {notFound, developmentErrors, productionErrors} = require('./handlers/errorHandlers');
 
 i18n.configure({
