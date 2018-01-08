@@ -60,7 +60,8 @@ exports.register = function (req, res, next) {
                 //if user does not exist - create
                 const user = new User({
                     email: email,
-                    password: password
+                    password: password,
+                    bucketName: bucketName
                 })
 
                 user.save(function (err) {
