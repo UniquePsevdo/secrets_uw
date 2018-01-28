@@ -1,7 +1,7 @@
 FROM node:8.9.4
 
 # Create app directory
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Install app dependencies
 # COPY package.json .
