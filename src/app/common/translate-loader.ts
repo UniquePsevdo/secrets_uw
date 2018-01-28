@@ -13,7 +13,7 @@ export class CustomTranslateLoader implements TranslateLoader {
     }
 
     public getTranslation(lang: string): Observable<any> {
-        console.log('getTranslation', lang);
+        console.log('getTranslation client ', lang);
         return this.http.get(`${this.globals.environment.apiUrl}/translations?language=${lang}`,
             {
                 headers: new HttpHeaders().set('Accept-Language', lang),

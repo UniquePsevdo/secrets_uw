@@ -7,3 +7,7 @@ npm-debug.log
 src/ngfactory
 coverage/
 lib/
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

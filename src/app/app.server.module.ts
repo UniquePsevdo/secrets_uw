@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { UsersModule } from './users/users.module';
 import { AppRoutingModule } from './app-routing.module';
+import { CustomTranslateLoader } from './common/translate-loader';
 Globals.setEnvironment('prod');
 
 @Injectable()
@@ -53,12 +54,19 @@ export function translateLoaderFactory() {
 
 
 @NgModule({
-    imports: [TranslateModule.forRoot({
+    imports: [
+        TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
             useFactory: translateLoaderFactory
         }
     }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: CustomTranslateLoader
+            }
+        }),
         AppModule,
         ServerModule,
         ModuleMapLoaderModule,
