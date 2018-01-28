@@ -44,7 +44,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 // Our index.html we'll use as our template
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
 
-const {AppServerModuleNgFactory} = require('./lib/src/app/app.server.module.ngfactory');
+const {AppServerModuleNgFactory, LAZY_MODULE_MAP} = require('./lib/src/app/app.server.module.ngfactory');
 
 const {provideModuleMap} = require('@nguniversal/module-map-ngfactory-loader');
 
@@ -52,6 +52,9 @@ app.engine('html', (_, options, callback) => {
     renderModuleFactory(AppServerModuleNgFactory, {
         document: template,
         url: options.req.url,
+        extraProviders: [
+            provideModuleMap(LAZY_MODULE_MAP)
+        ]
     }).then(html => {
         callback(null, html);
     });
@@ -70,7 +73,7 @@ app.get('*', (req, res) => {
     res.render(join(DIST_FOLDER, 'browser', 'index.html'), {req});
 });
 
-let whitelist = ['http://localhost:4200', 'http://localhost:8000', 'http://localhost:4000', 'http://localhost:3090'];
+let whitelist = ['http://localhost:4200', 'http://localhost:8000', 'http://localhost:4000', 'http://localhost:8081'];
 let corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
@@ -91,7 +94,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Start up the Node server
-const PORT = process.env.PORT || 3090;
+const PORT = process.env.PORT || 8081;
 
 const server = http.createServer(app);
 server.listen(PORT, () => {
