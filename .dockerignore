@@ -21,3 +21,4 @@ tslint.json
 webpack.config.js
 webpack.config.server.js
 yarn.lock
+.gitignore
