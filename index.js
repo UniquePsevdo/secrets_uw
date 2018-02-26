@@ -13,7 +13,7 @@ const {notFound, developmentErrors, productionErrors} = require('./handlers/erro
 
 i18n.configure({
     locales: ['ua', 'en'],
-    directory: path.join(process.cwd(), 'src', 'assets', 'locales'),
+    directory: path.join(process.cwd(), 'locales'),
     defaultLocale: 'ua',
 });
 

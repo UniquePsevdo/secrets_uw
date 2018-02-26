@@ -1,0 +1,358 @@
+/* Opacity */
+@mixin opacity($value) {
+	$IEValue: $value*100;
+	opacity: $value;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+	filter: alpha(opacity=$IEValue);
+}
+/* @include opacity(1); */
+
+
+/* Clearfix */
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+/* @include clearfix; */
+
+
+/* Transition */
+@mixin transition($args...) {
+	-webkit-transition: $args;
+	-moz-transition: $args;
+	-ms-transition: $args;
+	-o-transition: $args;
+	transition: $args;
+}
+/* @include transition(.35s); */
+
+
+/* Box Sizing */
+@mixin box-sizing($box-model) {
+	-webkit-box-sizing: $box-model; // Safari <= 5
+	-moz-box-sizing: $box-model; // Firefox <= 19
+	box-sizing: $box-model;
+}
+/* @include box-sizing(border-box); */
+
+
+/* Border Radius */
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	-o-background-clip: padding-box;
+	background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+@mixin border-top-radius($radius) {
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-right-radius: $radius;
+	-webkit-border-top-left-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	border-top-left-radius: $radius;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	-o-background-clip: padding-box;
+	background-clip: padding-box;
+}
+@mixin border-right-radius($radius) {
+	-webkit-border-bottom-right-radius: $radius;
+	-moz-border-radius-bottomright: $radius;
+	border-bottom-right-radius: $radius;
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-right-radius: $radius;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	-o-background-clip: padding-box;
+	background-clip: padding-box;
+}
+@mixin border-bottom-radius($radius) {
+	-webkit-border-bottom-right-radius: $radius;
+	-moz-border-radius-bottomright: $radius;
+	border-bottom-right-radius: $radius;
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	border-bottom-left-radius: $radius;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	-o-background-clip: padding-box;
+	background-clip: padding-box;
+}
+@mixin border-left-radius($radius) {
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	border-bottom-left-radius: $radius;
+	-webkit-border-top-left-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	border-top-left-radius: $radius;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	-o-background-clip: padding-box;
+	background-clip: padding-box;
+}
+/* @include border-radius(5px);
+   @include border-top-radius(5px);
+   @include border-right-radius(5px);
+   @include border-bottom-radius(5px);
+   @include border-left-radius (5px); */
+
+
+/* Background - Contain */
+@mixin background-contain {
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
+}
+/* @include background-contain; */
+
+
+/* Background - Cover */
+@mixin background-cover {
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+/* @include background-cover; */
+
+
+/* User Select */
+@mixin user-select {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+}
+/* @include user-select; */
+
+
+/* Center Block */
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}    
+/* @include center-block; */
+
+
+/* Text Truncate */
+@mixin text-truncate {
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/* @include text-truncate; */
+
+
+/* Transform Rotate */
+@mixin transform-rotate($val) {
+	-webkit-transform: rotate($val);
+	-moz-transform: rotate($val);
+	-ms-transform: rotate($val);
+	-o-transform: rotate($val);
+	transform: rotate($val);
+}
+/* @include transform-rotate(45deg); */
+
+
+/* Transform Scale */
+@mixin scale($val) {
+	-webkit-transform: scale($val);
+	-moz-transform: scale($val);
+	-ms-transform: scale($val);
+	-o-transform: scale($val);
+	transform: scale($val);
+}
+/* @include scale(1.1); */
+
+
+/* Transform TranslateX */
+@mixin translateX {
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+/* @include translateX; */
+
+
+/* Transform TranslateY */
+@mixin translateY {
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+/* @include translateY; */
+
+
+/* Transform Translate */
+@mixin translate {
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+/* @include translate; */
+
+
+/* Flex-box (display: flex) */
+@mixin display-flex {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+/* @include display-flex; */
+
+
+/* Flex-box (flex-wrap) */
+@mixin flex-wrap($val) { //nowrap | wrap | wrap-reverse
+	-webkit-flex-wrap: $val;
+	-ms-flex-wrap: $val;
+	flex-wrap: $val;
+}
+/* @include flex-wrap(nowrap);
+   @include flex-wrap(wrap);
+   @include flex-wrap(wrap-reverse); */
+
+/* Flex-box (justify-content: flex-start) */
+@mixin flex-start {
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	-moz-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+}
+/* @include flex-start; */
+
+/* Flex-box (justify-content: space-between) */
+@mixin space-between {
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	-moz-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+/* @include space-between; */
+
+/* Flex-box (justify-content: space-around) */
+@mixin space-around {
+	-webkit-justify-content: space-around;
+	-ms-flex-pack: distribute;
+	justify-content: space-around;
+}
+/* @include space-around; */
+
+/* Flex-box (justify-content: center) */
+@mixin justify-center {
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-moz-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+/* @include justify-center; */
+
+/* Flex-box (justify-content: flex-start) */
+@mixin flex-start {
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	-moz-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+}
+/* @include flex-start; */
+
+/* Flex-box (align-items: center) */
+@mixin align-items-center {
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	-ms-grid-row-align: center;
+	align-items: center;
+}
+/* @include align-items-center; */
+
+/* Flex-box (align-items: end) */
+@mixin justify-end {
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	-moz-box-pack: end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+}
+/* @include justify-end; */
+
+/* Flex-box (flex-direction: column) */
+@mixin flex-direction-column {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-moz-box-orient: vertical;
+	-moz-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
+/* @include flex-direction-column; */
+
+/* Flex Reverse Row */
+@mixin revers-row {
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: reverse;
+	-webkit-flex-direction: row-reverse;
+	-moz-box-orient: horizontal;
+	-moz-box-direction: reverse;
+	-ms-flex-direction: row-reverse;
+	flex-direction: row-reverse;
+}
+/* @include revers-row; */
+
+/* Flex Row */
+@mixin row {
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	-moz-box-orient: horizontal;
+	-moz-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
+/* @include row; */
+
+/* Flex Grow */
+@mixin flex-grow {
+	-webkit-box-flex: 1;
+	-webkit-flex-grow: 1;
+	-moz-box-flex: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+}
+/* @include flex-grow; */
+
+/* Background-color - Opacity */
+@mixin bg-color-opacity($color, $background) {
+	$percent: alpha($color) * 100%;
+	$opaque: opacify($color, 1);
+	$solid-color: mix($opaque, $background, $percent);
+	background-color: $solid-color;
+	background-color: $color;
+}
+/* @include bg-color-opacity(rgba(color, 0.5), color); */
