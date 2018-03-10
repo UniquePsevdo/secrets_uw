@@ -3,9 +3,8 @@
 node_modules/
 .DS_Store
 npm-debug.log
-src/ngfactory
-coverage/
 lib/
+dist/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
