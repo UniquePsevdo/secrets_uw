@@ -1,8 +1,6 @@
-*
+/*
 !dist/
-!dist/*
 !locales/
-!locales/*
 !package-lock.json
 !package.json
 !Dockerfile
