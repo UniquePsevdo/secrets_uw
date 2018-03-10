@@ -6,9 +6,7 @@ npm-debug.log
 src/ngfactory
 coverage/
 lib/
-
-
-
+dist/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

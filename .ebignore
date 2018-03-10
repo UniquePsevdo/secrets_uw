@@ -1,0 +1,7 @@
+*
+
+!dist
+!locales
+!dist
+!package-lock.json
+!package.json
