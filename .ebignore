@@ -1,5 +1,5 @@
 /*
-!dist/
+!dist_test/
 !locales/
 !package-lock.json
 !package.json
