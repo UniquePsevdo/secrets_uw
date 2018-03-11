@@ -1,0 +1,14 @@
+/*
+!dist_test/
+!locales/
+!package-lock.json
+!package.json
+!Dockerfile
+apiRoutes/
+controllers/
+e2e/
+handlers/
+models/
+node_modules/
+services/
+src/

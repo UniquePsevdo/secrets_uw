@@ -43,7 +43,7 @@ export class TranslateUniversalLoader implements TranslateLoader {
      */
     public getTranslation(lang: string): Observable<any> {
         return Observable.create(observer => {
-            observer.next(JSON.parse(fs.readFileSync(( 'src/assets/locales/' + lang + '.json'), 'utf8')));
+            observer.next(JSON.parse(fs.readFileSync(( 'locales/' + lang + '.json'), 'utf8')));
             observer.complete();
         });
     }

@@ -6,10 +6,10 @@ export class GlobalsProd {
     constructor() {
         this.environment = {
             production: true,
-            apiUrl: 'http://localhost:8081/api',
+            apiUrl: 'http://ukrainesecret.com/api',
             token_endpoint: '/login',
             refresh_endpoint: '/refresh',
-            envName: 'dev'
+            envName: 'prod'
         }
     }
 }

@@ -1,6 +1,8 @@
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone-node';
+import 'localstorage-polyfill'
+global['localStorage'] = localStorage;
 import * as path from 'path';
 /*require('import-export');*/
 
@@ -16,7 +18,7 @@ import { notFound, developmentErrors, productionErrors } from './handlers/errorH
 
 i18n.configure({
     locales: ['ua', 'en'],
-    directory: path.join(process.cwd(), 'src', 'assets', 'locales'),
+    directory: path.join(process.cwd(), 'locales'),
     defaultLocale: 'ua',
 });
 
@@ -39,7 +41,7 @@ const app = express();
 app.use(morgan('combined'));
 app.use(i18n.init);
 
-const DIST_FOLDER = join(process.cwd(), 'dist');
+const DIST_FOLDER = join(process.cwd(), (process.config['testprod'] ? 'dist_test' : 'dist'));
 
 // Our index.html we'll use as our template
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
