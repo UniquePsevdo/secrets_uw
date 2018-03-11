@@ -41,7 +41,7 @@ const app = express();
 app.use(morgan('combined'));
 app.use(i18n.init);
 
-const DIST_FOLDER = join(process.cwd(), 'dist');
+const DIST_FOLDER = join(process.cwd(), (process.config['testprod'] ? 'dist_test' : 'dist'));
 
 // Our index.html we'll use as our template
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
