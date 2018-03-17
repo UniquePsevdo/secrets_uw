@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = function(options) {
+    options = options || {};
     process.config['testprod'] = options.testprod;
     return {
         entry: {server: './server.ts'},
@@ -25,7 +26,7 @@ module.exports = function(options) {
             ]
         })],
         output: {
-            path: path.join(__dirname, (options.testprod ? 'dist_test' : 'dist')),
+            path: path.join(__dirname, options.testprod ? 'dist_test' : 'dist'),
             filename: '[name].js'
         },
         module: {

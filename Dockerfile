@@ -1,9 +1,11 @@
 FROM node:8.9.4
+ARG BUILD_DIR=dist
+ENV BUILD_DIR=${BUILD_DIR}
 WORKDIR usr/src/app
-COPY dist_test ./dist/
+COPY ${BUILD_DIR} ./${BUILD_DIR}/
 COPY locales ./locales/
 COPY package.json package-lock.json ./
 RUN npm install
 EXPOSE 8081
 USER node
-CMD [ "node", "dist/server.js" ]
+CMD [ "node", "${BUILD_DIR}/server.js" ]
