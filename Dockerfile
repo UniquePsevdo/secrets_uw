@@ -6,4 +6,4 @@ COPY package.json package-lock.json ./
 RUN npm install
 EXPOSE 8081
 USER node
-CMD [ "node", "${BUILD_DIR}/server.js" ]
+CMD [ "node", "dist/server.js" ]
