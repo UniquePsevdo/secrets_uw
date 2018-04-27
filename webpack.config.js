@@ -64,11 +64,7 @@ module.exports = function (options, webpackOptions) {
     let entry = {};
 
     if (webpackOptions.p) {
-        if(options.testprod){
-            entry = {app: root('src/main.prod.test.ts')};
-        }else{
-            entry = {app: root('src/main.prod.ts')};
-        }
+        entry = {app: root('src/main.prod.ts')};
     } else {
         entry = {app: root('src/main.ts')};
     }
@@ -231,7 +227,7 @@ module.exports = function (options, webpackOptions) {
 
     config = webpackMerge({}, config, {
         output: {
-            path: root(options.testprod ? 'dist_test/browser' : 'dist/browser'),
+            path: root('dist/browser'),
             filename: 'js/[name].bundle.js',
             chunkFilename: 'js/[id].chunk.js'
         },
@@ -266,8 +262,7 @@ module.exports = function (options, webpackOptions) {
                     title: "Webpack App",
                     xhtml: true,
                 template: root('src/index.html'),
-                output: !options.server ? root(options.testprod ? 'dist_test/browser':'dist/browser') :
-                    root(options.testprod ? 'dist_test/server' : 'dist/server'),
+                output: !options.server ? root('dist/browser') : root('dist/server'),
                 chunksSortMode: sort = (left, right) => {
                     let leftIndex = entryPoints.indexOf(left.names[0]);
                     let rightindex = entryPoints.indexOf(right.names[0]);
