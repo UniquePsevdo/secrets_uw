@@ -9,7 +9,6 @@
     "build:ssr": "ngc -p ./src/tsconfig.server.json && webpack --config ./webpack.config.server.js --progress && rimraf ./lib",
     "build": "npm run build:client && npm run build:ssr",
     "build:prod": "npm run build:client:prod && npm run build:ssr",
-    "build:test:prod": "npm run build:client:test:prod && npm run build:ssr:test:prod",
     "clean": "rimraf dist",
     "server": "node dist/server.js",
     "dev": "webpack --env.server --progress --hide-modules --watch & webpack-dev-server --env.client --env.serve --progress",
